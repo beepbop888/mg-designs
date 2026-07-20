@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARKS GROUP — генеральное проектирование полного цикла</title>
+<meta name="description" content="MARKS GROUP — архитектурно-инжиниринговое бюро. Генеральное проектирование — от концепции до ввода объекта в эксплуатацию. 1300 специалистов, 200+ проектов, 20+ лет на рынке.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MARKS GROUP — направление B «проектная документация»
+   Swiss / International Typographic Style
+   Сетка: 12 колонок, видимые линии 1px
+   Шрифт: Inter · 2 начертания (400/600) · 3 кегля
+   Цвет: бумага / почти-чёрный / navy #1D2E43 (единственный акцент)
+   ============================================================ */
+:root{
+  --navy:#1D2E43;
+  --ink:#14181D;
+  --ink-2:#5A6270;              /* приглушённый текст (тот же чёрный, ослаблен) */
+  --paper:#FBFBF9;
+  --line:rgba(20,24,29,.16);    /* линейка 1px */
+  --line-faint:rgba(29,46,67,.07); /* колонки фоновой сетки */
+  --fs-s:.75rem;                /* кегль 1 — подписи, шифры, навигация */
+  --fs-m:1rem;                  /* кегль 2 — текст, таблицы, заголовки разделов */
+  --fs-xl:clamp(3rem,9vw,8.5rem); /* кегль 3 — акциденция: заголовок, цифры */
+  --w:min(1360px,calc(100% - 48px));
+  --col:calc(100%/12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:var(--fs-m);
+  font-weight:400;
+  line-height:1.5;
+  color:var(--ink);
+  background:var(--paper);
+  font-variant-numeric:tabular-nums; /* табличные цифры — везде */
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--navy);color:var(--paper)}
+
+/* --- видимая 12-колоночная сетка (фоновые линии) --- */
+.gridlines{
+  position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);
+  width:var(--w);pointer-events:none;z-index:0;
+  background-image:linear-gradient(to right,var(--line-faint) 0,var(--line-faint) 1px,transparent 1px);
+  background-size:var(--col) 100%;
+  border-right:1px solid var(--line-faint);
+}
+@media (max-width:760px){.gridlines{background-size:25% 100%}}
+
+/* --- общие элементы документации --- */
+.wrap{width:var(--w);margin-inline:auto;position:relative;z-index:1}
+.eyebrow{
+  font-size:var(--fs-s);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--navy);
+}
+.note{font-size:var(--fs-s);color:var(--ink-2);letter-spacing:.02em}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--navy);outline-offset:2px;
+}
+.skip{
+  position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--paper);
+  padding:8px 16px;font-size:var(--fs-s);z-index:100;
+}
+.skip:focus{left:0}
+
+section{border-top:1px solid var(--line);padding:88px 0 96px}
+@media (max-width:760px){section{padding:56px 0 64px}}
+.sec-head{
+  display:grid;grid-template-columns:repeat(12,1fr);align-items:baseline;
+  margin-bottom:56px;
+}
+.sec-code{grid-column:1/span 2;font-size:var(--fs-s);font-weight:600;color:var(--navy);letter-spacing:.08em}
+.sec-title{
+  grid-column:3/span 6;font-size:var(--fs-m);font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.sec-note{grid-column:9/span 4;text-align:right}
+@media (max-width:760px){
+  .sec-head{grid-template-columns:1fr;gap:4px;margin-bottom:36px}
+  .sec-code,.sec-title,.sec-note{grid-column:1;text-align:left}
+}
+
+/* ============ ШАПКА ============ */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.hd{
+  display:flex;align-items:stretch;justify-content:space-between;gap:24px;
+  min-height:56px;
+}
+.logo{
+  display:flex;align-items:center;gap:12px;
+  font-weight:600;letter-spacing:.06em;font-size:var(--fs-m);
+}
+.logo .sq{width:10px;height:10px;background:var(--navy);flex:none}
+nav.main{display:flex;align-items:stretch}
+nav.main a{
+  display:flex;align-items:center;padding:0 14px;
+  font-size:var(--fs-s);font-weight:400;letter-spacing:.1em;text-transform:uppercase;
+  border-left:1px solid var(--line);
+  color:var(--ink);
+}
+nav.main a:hover{color:var(--navy);background:rgba(29,46,67,.04)}
+.cta{
+  display:flex;align-items:center;padding:0 20px;
+  background:var(--navy);color:var(--paper)!important;
+  font-size:var(--fs-s);font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  border-left:1px solid var(--navy);
+}
+.cta:hover{background:var(--ink)}
+.menu-btn{display:none}
+@media (max-width:1100px){
+  nav.main a:not(.cta){display:none}
+  nav.main .cta{display:flex;border-left:1px solid var(--line)}
+  .menu-btn{
+    display:flex;align-items:center;padding:0 14px;border:0;border-left:1px solid var(--line);
+    background:none;font:inherit;font-size:var(--fs-s);letter-spacing:.1em;text-transform:uppercase;
+    cursor:pointer;color:var(--ink);
+  }
+  nav.main.open{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line)}
+  nav.main.open a{display:flex;padding:14px 24px;border-left:0;border-top:1px solid var(--line)}
+}
+
+/* ============ ГЕРОЙ ============ */
+.hero{border-top:0;padding:64px 0 0}
+.hero-meta{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  font-size:var(--fs-s);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;
+  padding-bottom:20px;border-bottom:1px solid var(--line);
+}
+.hero-meta span:nth-child(1){grid-column:1/span 4}
+.hero-meta span:nth-child(2){grid-column:5/span 4}
+.hero-meta span:nth-child(3){grid-column:9/span 4;text-align:right}
+h1{
+  font-size:var(--fs-xl);font-weight:600;letter-spacing:-.045em;line-height:.94;
+  text-transform:uppercase;padding:40px 0 8px;
+}
+h1 .l2{display:block;margin-left:calc(100%/12*3)}
+.hero-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:0;
+  padding:32px 0 72px;align-items:end;
+}
+.hero-tag{
+  grid-column:1/span 5;padding-right:40px;
+  font-size:var(--fs-m);line-height:1.6;max-width:34ch;
+}
+.hero-tag .eyebrow{display:block;margin-bottom:16px}
+.hero-awards{
+  display:grid;grid-template-columns:repeat(12,1fr);align-items:baseline;gap:0 16px;
+  padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  font-size:var(--fs-s);
+}
+.hero-awards .lbl{
+  grid-column:1/span 2;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+}
+.hero-awards ul{grid-column:3/span 10;list-style:none;display:flex;flex-wrap:wrap;gap:8px 32px}
+.hero-awards li{position:relative;padding-left:24px;letter-spacing:.02em;font-weight:600}
+.hero-awards li::before{content:"§";position:absolute;left:0;color:var(--navy);font-weight:600}
+@media (max-width:760px){
+  .hero-awards{grid-template-columns:1fr;gap:8px}
+  .hero-awards .lbl,.hero-awards ul{grid-column:1}
+}
+.hero-links{margin-top:32px;display:flex;gap:24px;font-size:var(--fs-s)}
+.hero-links a{border-bottom:1px solid var(--ink);padding-bottom:3px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.hero-links a:hover{color:var(--navy);border-color:var(--navy)}
+.fig{grid-column:7/span 6}
+.fig .frame{
+  border:1px solid var(--line);padding:8px;background:var(--paper);
+}
+.fig img{display:block;width:100%;height:auto;aspect-ratio:1520/950;object-fit:cover}
+.figcap{
+  display:flex;justify-content:space-between;gap:16px;
+  font-size:var(--fs-s);color:var(--ink-2);padding-top:10px;
+}
+.figcap b{font-weight:600;color:var(--ink)}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-tag,.fig{grid-column:1;padding-right:0}
+  h1 .l2{margin-left:calc(100%/12*2)}
+}
+
+/* ============ §01 ПОКАЗАТЕЛИ ============ */
+.stats{display:grid;grid-template-columns:repeat(12,1fr)}
+.stat{
+  grid-column:span 4;padding:8px 32px 0 0;
+  border-left:1px solid var(--line);padding-left:24px;
+}
+.stat:first-child{border-left:0;padding-left:0}
+.stat .n{
+  font-size:var(--fs-xl);font-weight:600;letter-spacing:-.04em;line-height:1;
+  display:block;
+}
+.stat .n sup{font-size:.35em;font-weight:600;color:var(--navy);vertical-align:super;letter-spacing:0}
+.stat .l{display:block;margin-top:16px;font-size:var(--fs-s);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;max-width:22ch}
+@media (max-width:760px){
+  .stats{grid-template-columns:1fr}
+  .stat{grid-column:1;border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:24px;margin-top:24px}
+  .stat:first-child{border-top:0;padding-top:0;margin-top:0}
+}
+
+/* ============ §02 КОМПЕТЕНЦИИ ============ */
+.comp-grid{
+  list-style:none;display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);
+}
+.comp-grid li{
+  min-height:180px;padding:20px;position:relative;
+  border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:space-between;gap:32px;
+}
+.comp-grid li:nth-child(4n){border-right:0}
+.comp-grid li:nth-child(n+5){border-bottom:0}
+.comp-grid .k-num{font-size:var(--fs-s);font-weight:600;color:var(--navy);letter-spacing:.08em}
+.comp-grid .k-name{font-size:var(--fs-m);font-weight:600;line-height:1.3;letter-spacing:-.01em}
+@media (max-width:900px){
+  .comp-grid{grid-template-columns:repeat(2,1fr)}
+  .comp-grid li{min-height:140px}
+  .comp-grid li:nth-child(4n){border-right:1px solid var(--line)}
+  .comp-grid li:nth-child(2n){border-right:0}
+  .comp-grid li:nth-child(n+5){border-bottom:1px solid var(--line)}
+  .comp-grid li:nth-child(n+7){border-bottom:0}
+}
+
+/* ============ §03 ПРОЕКТЫ — ИНДЕКС ============ */
+.proj-layout{display:grid;grid-template-columns:repeat(12,1fr);align-items:start}
+.proj-table{grid-column:1/span 8;border-top:1px solid var(--line)}
+.pt-head,.pt-row{
+  display:grid;
+  grid-template-columns:3.5rem minmax(0,1fr) 9.5rem 13rem 4rem;
+  gap:0 16px;align-items:baseline;
+}
+.pt-head{
+  font-size:var(--fs-s);font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);padding:12px 0;border-bottom:1px solid var(--line);
+}
+.pt-row{
+  padding:14px 0;border-bottom:1px solid var(--line);
+  color:var(--ink);
+}
+.pt-row:hover,.pt-row:focus-visible,.pt-row.is-active{background:rgba(29,46,67,.05)}
+.pt-row .c-num{font-size:var(--fs-s);font-weight:600;color:var(--navy)}
+.pt-row .c-obj{font-weight:600;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pt-row .c-city,.pt-row .c-comp{font-size:var(--fs-s);color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pt-row .c-year{font-size:var(--fs-s);text-align:right}
+.proj-foot{display:flex;justify-content:space-between;padding-top:16px;font-size:var(--fs-s);color:var(--ink-2)}
+.proj-foot a{font-weight:600;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px;letter-spacing:.08em;text-transform:uppercase}
+.proj-foot a:hover{color:var(--navy);border-color:var(--navy)}
+/* предпросмотр по наведению */
+.preview{grid-column:10/span 3;position:sticky;top:96px;margin:0}
+.preview .frame{
+  position:relative;border:1px solid var(--line);padding:8px;background:var(--paper);
+}
+.preview .stack{position:relative;aspect-ratio:640/440;overflow:hidden}
+.preview img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;
+}
+.preview img.is-on{opacity:1}
+.preview figcaption{font-size:var(--fs-s);color:var(--ink-2);padding-top:10px}
+.preview figcaption b{font-weight:600;color:var(--ink)}
+@media (max-width:1100px){
+  .proj-table{grid-column:1/span 12}
+  .preview{display:none}
+  .pt-head,.pt-row{grid-template-columns:3rem minmax(0,1fr) 8rem 4rem}
+  .c-comp,.pt-head .h-comp{display:none}
+}
+@media (max-width:600px){
+  .pt-head,.pt-row{grid-template-columns:2.5rem minmax(0,1fr) 4rem}
+  .c-city,.pt-head .h-city{display:none}
+  .pt-row .c-obj{white-space:normal}
+}
+
+/* ============ §04 ПРИЗНАНИЕ ============ */
+.awards{border-top:1px solid var(--line)}
+.aw-row{
+  display:grid;grid-template-columns:4rem minmax(0,4fr) minmax(0,5fr) 9.5rem;
+  gap:0 20px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.aw-head{
+  display:grid;grid-template-columns:4rem minmax(0,4fr) minmax(0,5fr) 9.5rem;
+  gap:0 20px;padding:0 0 8px;
+  font-size:var(--fs-xs,.72rem);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;
+}
+.aw-head .r{text-align:right}
+.aw-row .y{font-size:var(--fs-s);font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
+.aw-row .a{font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.aw-row .nm{font-size:var(--fs-s);color:var(--ink-2);line-height:1.4}
+.aw-row .r{font-size:var(--fs-xs,.72rem);text-align:right;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+.aw-note{padding-top:20px}
+@media (max-width:760px){
+  .aw-head{display:none}
+  .aw-row{grid-template-columns:3.5rem 1fr;row-gap:3px}
+  .aw-row .nm{grid-column:2}
+  .aw-row .r{grid-column:2;text-align:left;white-space:normal}
+}
+
+/* ============ §05 О КОМПАНИИ ============ */
+.about{display:grid;grid-template-columns:repeat(12,1fr);row-gap:64px}
+.about-text{grid-column:1/span 6;padding-right:48px}
+.about-text p{max-width:56ch;line-height:1.7}
+.about-text p+p{margin-top:20px}
+.about-fig{grid-column:8/span 5}
+.about-fig .frame{border:1px solid var(--line);padding:8px}
+.about-fig img{display:block;width:100%;height:auto;aspect-ratio:760/507;object-fit:cover}
+.chrono{grid-column:1/span 12}
+.chrono-cap{font-size:var(--fs-s);font-weight:600;color:var(--navy);letter-spacing:.08em;margin-bottom:12px}
+.ch-row{
+  display:grid;grid-template-columns:7rem minmax(0,1fr);gap:0 16px;
+  padding:14px 0;border-top:1px solid var(--line);align-items:baseline;
+}
+.ch-row:last-child{border-bottom:1px solid var(--line)}
+.ch-row .y{font-weight:600}
+.ch-row .t{font-size:var(--fs-s);color:var(--ink-2);line-height:1.6}
+@media (max-width:900px){
+  .about-text{grid-column:1/span 12;padding-right:0}
+  .about-fig{grid-column:1/span 12}
+}
+
+/* ============ §06 КОНТАКТ ============ */
+.contact{display:grid;grid-template-columns:repeat(12,1fr)}
+.ct-info{grid-column:1/span 5;padding-right:48px}
+.ct-info h2{
+  font-size:var(--fs-xl);font-weight:600;letter-spacing:-.045em;line-height:.98;
+  text-transform:uppercase;margin:16px 0 32px;
+}
+.ct-list{list-style:none;border-top:1px solid var(--line)}
+.ct-list li{
+  display:grid;grid-template-columns:7rem 1fr;gap:16px;
+  padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline;
+}
+.ct-list .k{font-size:var(--fs-s);color:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
+.ct-list .v{font-weight:600;letter-spacing:-.01em}
+.ct-list .v a:hover{color:var(--navy)}
+form{grid-column:7/span 6}
+.f-cap{font-size:var(--fs-s);font-weight:600;color:var(--navy);letter-spacing:.08em;margin-bottom:24px}
+.f-field{margin-bottom:32px}
+.f-field label{
+  display:block;font-size:var(--fs-s);color:var(--ink-2);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;
+}
+.f-field input,.f-field textarea{
+  width:100%;border:0;border-bottom:1px solid var(--line);
+  background:transparent;font:inherit;color:var(--ink);
+  padding:8px 0 12px;border-radius:0;
+}
+.f-field textarea{resize:vertical;min-height:96px}
+.f-field input:focus-visible,.f-field textarea:focus-visible{
+  outline:none;border-bottom:2px solid var(--navy);padding-bottom:11px;
+}
+.f-consent{
+  display:flex;gap:12px;align-items:flex-start;
+  font-size:var(--fs-s);color:var(--ink-2);line-height:1.6;margin-bottom:32px;
+}
+.f-consent input{width:16px;height:16px;margin-top:2px;accent-color:var(--navy);flex:none}
+.f-submit{
+  display:inline-flex;align-items:center;gap:16px;
+  background:var(--navy);color:var(--paper);border:0;cursor:pointer;
+  font:inherit;font-size:var(--fs-s);font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:18px 40px;
+}
+.f-submit:hover{background:var(--ink)}
+.f-submit[disabled]{cursor:default;opacity:.55}
+.f-status{margin-top:20px;font-size:var(--fs-s);color:var(--navy);font-weight:600;letter-spacing:.04em;min-height:1.2em}
+@media (max-width:900px){
+  .ct-info{grid-column:1/span 12;padding-right:0;margin-bottom:56px}
+  form{grid-column:1/span 12}
+}
+
+/* ============ ПОДВАЛ ============ */
+footer{border-top:1px solid var(--line);position:relative;z-index:1;background:var(--paper)}
+.ft{
+  width:var(--w);margin-inline:auto;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:40px 0;
+  padding:56px 0;
+}
+.ft-col{grid-column:span 3;padding-right:24px}
+.ft-col .k{font-size:var(--fs-s);font-weight:600;color:var(--navy);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:16px}
+.ft-col ul{list-style:none}
+.ft-col li{font-size:var(--fs-s);line-height:2;color:var(--ink-2)}
+.ft-col li a{color:var(--ink)}
+.ft-col li a:hover{color:var(--navy)}
+.ft-bottom{
+  width:var(--w);margin-inline:auto;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding:20px 0 32px;
+  font-size:var(--fs-s);color:var(--ink-2);
+}
+@media (max-width:900px){.ft-col{grid-column:span 6}}
+@media (max-width:560px){.ft-col{grid-column:span 12}}
+</style>
+</head>
+<body>
+<div class="gridlines" aria-hidden="true"></div>
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<!-- ======================= ШАПКА ======================= -->
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="./" aria-label="MARKS GROUP — на главную">
+      <span class="sq" aria-hidden="true"></span>MARKS GROUP
+    </a>
+    <nav class="main" id="nav" aria-label="Основная навигация">
+      <a href="./" aria-current="page">Главная</a>
+      <a href="#">Проекты</a>
+      <a href="#">Публикации</a>
+      <a href="#">О компании</a>
+      <a href="#">Контакты</a>
+      <a href="#">HR портал</a>
+      <a href="https://marksgroup.org" lang="en">EN</a>
+      <a class="cta" href="#contact">Обсудить проект</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Меню</button>
+  </div>
+</header>
+
+<main id="main">
+<!-- ======================= ГЕРОЙ ======================= -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span>Архитектурно-инжиниринговое бюро</span>
+      <span>Москва · осн. 2005</span>
+      <span>МГ-ДОК · лист 01</span>
+    </div>
+    <h1 id="h1">Marks <span class="l2">Group</span></h1>
+    <div class="hero-awards" aria-label="Признание">
+      <span class="lbl">Признание</span>
+      <ul>
+        <li>«Лучший проектировщик жилья в&nbsp;России»</li>
+        <li>«BIM-компания года&nbsp;— 2025»</li>
+        <li>«100+ Awards&nbsp;— лучшая BIM-модель»</li>
+      </ul>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-tag">
+        <span class="eyebrow">Генеральный проектировщик</span>
+        <p>Генеральное проектирование — от&nbsp;концепции до&nbsp;ввода объекта в&nbsp;эксплуатацию. Архитектура, конструктив, инженерия, геотехника и&nbsp;цифровые технологии — в&nbsp;одном контуре ответственности.</p>
+        <div class="hero-links">
+          <a href="#projects">Индекс проектов</a>
+          <a href="#contact">Обсудить проект</a>
+        </div>
+      </div>
+      <figure class="fig">
+        <div class="frame">
+          <img src="../assets/img/50004b70_file_bol.j_1713342301110_3807.jpg.jpg"
+               alt="Большой театр — реконструкция подземной части, Москва"
+               width="1520" height="950" loading="eager" fetchpriority="high">
+        </div>
+        <figcaption class="figcap">
+          <span><b>Рис. 01</b> — Большой театр, Москва</span>
+          <span>Подземная часть · 2005</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= §01 ПОКАЗАТЕЛИ ======================= -->
+<section aria-labelledby="t01">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 01</span>
+      <h2 class="sec-title" id="t01">Показатели</h2>
+      <span class="sec-note note">Данные компании, 2026</span>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="n">1300</span>
+        <span class="l">квалифицированных специалистов</span>
+      </div>
+      <div class="stat">
+        <span class="n">200<sup>+</sup></span>
+        <span class="l">проектов реализовано</span>
+      </div>
+      <div class="stat">
+        <span class="n">20+</span>
+        <span class="l">лет на рынке</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= §02 КОМПЕТЕНЦИИ ======================= -->
+<section aria-labelledby="t02">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 02</span>
+      <h2 class="sec-title" id="t02">Компетенции</h2>
+      <span class="sec-note note">Полный цикл генерального проектирования</span>
+    </div>
+    <ul class="comp-grid">
+      <li><span class="k-num">01</span><span class="k-name">Архитектура и&nbsp;концепция</span></li>
+      <li><span class="k-num">02</span><span class="k-name">Градостроительство и&nbsp;генплан</span></li>
+      <li><span class="k-num">03</span><span class="k-name">Конструктив</span></li>
+      <li><span class="k-num">04</span><span class="k-name">Инженерия</span></li>
+      <li><span class="k-num">05</span><span class="k-name">Геотехника</span></li>
+      <li><span class="k-num">06</span><span class="k-name">Наука</span></li>
+      <li><span class="k-num">07</span><span class="k-name">Технологии</span></li>
+      <li><span class="k-num">08</span><span class="k-name">Цифровые технологии</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= §03 ПРОЕКТЫ — ИНДЕКС ======================= -->
+<section id="projects" aria-labelledby="t03">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 03</span>
+      <h2 class="sec-title" id="t03">Проекты — индекс</h2>
+      <span class="sec-note note">Выборка 12 объектов из 200+</span>
+    </div>
+    <div class="proj-layout">
+      <div class="proj-table">
+        <div class="pt-head" aria-hidden="true">
+          <span>№</span><span>Объект</span><span class="h-city">Город</span><span class="h-comp">Компетенции</span><span style="text-align:right">Год</span>
+        </div>
+        <a class="pt-row" href="#" data-i="0">
+          <span class="c-num">01</span><span class="c-obj">МФК AKHMAT TOWER</span><span class="c-city">Грозный</span><span class="c-comp">Конструктив · Инженерия · BIM</span><span class="c-year">2016</span>
+        </a>
+        <a class="pt-row" href="#" data-i="1">
+          <span class="c-num">02</span><span class="c-obj">Winepark, центр винного туризма</span><span class="c-city">Республика Крым</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2017</span>
+        </a>
+        <a class="pt-row" href="#" data-i="2">
+          <span class="c-num">03</span><span class="c-obj">Станция метро «Народное ополчение»</span><span class="c-city">Москва</span><span class="c-comp">Конструктив · Инженерия</span><span class="c-year">2020</span>
+        </a>
+        <a class="pt-row" href="#" data-i="3">
+          <span class="c-num">04</span><span class="c-obj">Государственный Академический Большой театр. Реконструкция</span><span class="c-city">Москва</span><span class="c-comp">Конструктив</span><span class="c-year">2005</span>
+        </a>
+        <a class="pt-row" href="#" data-i="4">
+          <span class="c-num">05</span><span class="c-obj">ЖК PRIME PARK</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · Конструктив · BIM · Инженерия</span><span class="c-year">2019</span>
+        </a>
+        <a class="pt-row" href="#" data-i="5">
+          <span class="c-num">06</span><span class="c-obj">NICOLE</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2022</span>
+        </a>
+        <a class="pt-row" href="#" data-i="6">
+          <span class="c-num">07</span><span class="c-obj">LEVEL</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2020</span>
+        </a>
+        <a class="pt-row" href="#" data-i="7">
+          <span class="c-num">08</span><span class="c-obj">Dubinin’Sky</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2021</span>
+        </a>
+        <a class="pt-row" href="#" data-i="8">
+          <span class="c-num">09</span><span class="c-obj">Бизнес-центр Sezar Group</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2023</span>
+        </a>
+        <a class="pt-row" href="#" data-i="9">
+          <span class="c-num">10</span><span class="c-obj">Жилой комплекс РЕКА-3</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2022</span>
+        </a>
+        <a class="pt-row" href="#" data-i="10">
+          <span class="c-num">11</span><span class="c-obj">Многофункциональный комплекс Eniteo</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · BIM · Конструктив · Инженерия</span><span class="c-year">2020</span>
+        </a>
+        <a class="pt-row" href="#" data-i="11">
+          <span class="c-num">12</span><span class="c-obj">Жилой комплекс HEADLINER</span><span class="c-city">Москва</span><span class="c-comp">Архитектура · Конструктив · Инженерия</span><span class="c-year">2020</span>
+        </a>
+        <div class="proj-foot">
+          <span>Наведите на строку — предпросмотр справа</span>
+          <a href="#">Все проекты</a>
+        </div>
+      </div>
+      <figure class="preview" aria-hidden="true">
+        <div class="frame">
+          <div class="stack">
+            <img class="is-on" src="../assets/img/529d6426_file_akhma_1719911619271_2354.png.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/3d5ffb88_file_PY7A9_1719912447521_1600.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/576a1ba6_file_metro_1705674976737_1940.png.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/50004b70_file_bol.j_1713342301110_3807.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/b22471dc_file_prime_1713010715729_2092.png.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/ce146b46_file_Aeria_1715929356563_8807.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/3cd2d812_file_75633_1719925940748_1426.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/f7fd50cb_file_2.jpg_1714741092119_8281.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/d718f859_file_1.jpg_1718112197469_6188.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/ce664e72_file_3__1.jpg)_1717743703053_9468.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/4a2536e8_file_34539_1717421822870_4964.jpg.jpg" alt="" width="640" height="440" loading="lazy">
+            <img src="../assets/img/4719c8a7_file_4__1.jpg)_1722857855979_1957.png" alt="" width="640" height="440" loading="lazy">
+          </div>
+        </div>
+        <figcaption><b>Рис. 02</b> — <span id="prevCap">МФК AKHMAT TOWER</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= §04 ПРИЗНАНИЕ ======================= -->
+<section aria-labelledby="t04">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 04</span>
+      <h2 class="sec-title" id="t04">Признание</h2>
+      <span class="sec-note note">Профессиональные премии</span>
+    </div>
+    <div class="aw-head">
+      <span>Год</span>
+      <span>Конкурс</span>
+      <span>Номинация</span>
+      <span class="r">Приз</span>
+    </div>
+    <div class="awards">
+      <div class="aw-row">
+        <span class="y">2026</span>
+        <span class="a">Urban Design &amp; Architecture Design Awards</span>
+        <span class="nm">Архитектура объектов культуры</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">Международный конкурс Terraviva Competitions</span>
+        <span class="nm">Bodegas Vinival</span>
+        <span class="r">Финалист</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">«Лидеры проектирования»</span>
+        <span class="nm">BIM-компания года</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">«Лидеры проектирования»</span>
+        <span class="nm">BIM-проект года</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">100+ Awards</span>
+        <span class="nm">Лучшая BIM-модель здания</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">«Топ-50 лучших проектировщиков жилья в России»</span>
+        <span class="nm">Генеральное проектирование</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">Real Estate Property Awards</span>
+        <span class="nm">Архитектурное и проектное бюро</span>
+        <span class="r">Финалист</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">«Директор года по проектированию в строительном комплексе РФ»</span>
+        <span class="nm">Проектирование торговых центров и коммерческих объектов</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">АРХ МОСКВА 2025</span>
+        <span class="nm">Архитектурные стенды</span>
+        <span class="r">Диплом</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2025</span>
+        <span class="a">Urban Design &amp; Architecture Design Awards</span>
+        <span class="nm">Жилая архитектура (концепция)</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2024</span>
+        <span class="a">100+ Awards</span>
+        <span class="nm">Лучшая BIM-модель здания</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2024</span>
+        <span class="a">Национальная премия «Лидеры проектирования 2024»</span>
+        <span class="nm">Проект года — ЖК и КРТ</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2024</span>
+        <span class="a">Международный фестиваль «Зодчество»</span>
+        <span class="nm">Лучшие творческие мастерские и стенд</span>
+        <span class="r">Диплом</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2024</span>
+        <span class="a">Архитектурная премия Москвы</span>
+        <span class="nm">Лучшее АГР объекта дорожно-транспортной инфраструктуры</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2024</span>
+        <span class="a">Real Estate Property Awards</span>
+        <span class="nm">Архитектурные концепции</span>
+        <span class="r">Финалист</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2023</span>
+        <span class="a">«100 лучших объектов России»</span>
+        <span class="nm">Лучшие конструктивные решения</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2023</span>
+        <span class="a">«Рекорды рынка недвижимости»</span>
+        <span class="nm">Клубный дом №1 города Москвы</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">«Лидер стройкомплекса России»</span>
+        <span class="nm">Лучшая проектно-изыскательская организация</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">Рейтинг лучших работодателей России</span>
+        <span class="nm">Строительство и недвижимость</span>
+        <span class="r">TOP 10</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">European Property Awards</span>
+        <span class="nm">Лучшая архитектура · ландшафт · интерьер</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">«Стекло в архитектуре»</span>
+        <span class="nm">Офисно-деловое здание</span>
+        <span class="r">Серебряный диплом</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">Премия Москомархитектуры</span>
+        <span class="nm">Лучшее АГР объекта транспортной инфраструктуры</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">Премия REPA</span>
+        <span class="nm">Репутация компании — проектное бюро</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2022</span>
+        <span class="a">Премия Urban Awards</span>
+        <span class="nm">Лучший жилой небоскрёб премиум-класса Москвы</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2021</span>
+        <span class="a">Премия Urban Awards</span>
+        <span class="nm">Лучший комплекс апартаментов премиум-класса Москвы</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2021</span>
+        <span class="a">World Travel Awards</span>
+        <span class="nm">Лучшая достопримечательность Европы в винном туризме</span>
+        <span class="r">Победитель</span>
+      </div>
+      <div class="aw-row">
+        <span class="y">2019</span>
+        <span class="a">World Architecture Festival (WAF)</span>
+        <span class="nm">Residential · Re-Use · Masterplanning</span>
+        <span class="r">Победитель</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= §05 О КОМПАНИИ ======================= -->
+<section aria-labelledby="t05">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 05</span>
+      <h2 class="sec-title" id="t05">О компании</h2>
+      <span class="sec-note note">Генеральный директор — Юрий Готман, с 2015</span>
+    </div>
+    <div class="about">
+      <div class="about-text">
+        <p>MARKS GROUP — генеральный проектировщик полного цикла, работающий с&nbsp;2005&nbsp;года. Компания начиналась с&nbsp;уникальных задач в&nbsp;области геотехники и&nbsp;подземного строительства — среди ранних работ подземные конструкции Большого театра и&nbsp;Алабяно-Балтийский тоннель.</p>
+        <p>С&nbsp;2014&nbsp;года — стремительный рост в&nbsp;группу компаний: архитектура, градостроительство, конструктив, инженерия, геотехника, наука и&nbsp;цифровые технологии. Сегодня — 1300+ специалистов и&nbsp;200+ проектов по&nbsp;всей России.</p>
+      </div>
+      <figure class="about-fig">
+        <div class="frame">
+          <img src="../assets/img/50004b70_file_bol.j_1713342301110_3807.jpg.jpg"
+               alt="Большой театр — устройство подземной части, реконструкция"
+               width="760" height="507" loading="lazy">
+        </div>
+        <figcaption class="figcap">
+          <span><b>Рис. 03</b> — Большой театр, подземная часть</span>
+          <span>2005</span>
+        </figcaption>
+      </figure>
+      <div class="chrono">
+        <p class="chrono-cap">Табл. 01 — Хронология</p>
+        <div class="ch-row"><span class="y">2005</span><span class="t">Основание компании. Первые проекты — геотехника и подземное строительство: подземные конструкции Большого театра, Алабяно-Балтийский тоннель.</span></div>
+        <div class="ch-row"><span class="y">2014</span><span class="t">Начало стремительного роста — от геотехнического бюро к группе компаний полного цикла.</span></div>
+        <div class="ch-row"><span class="y">2015</span><span class="t">Генеральным директором становится Юрий Готман.</span></div>
+        <div class="ch-row"><span class="y">2026</span><span class="t">1300 специалистов, 200+ реализованных проектов, офисы в шести городах: Москва, Санкт-Петербург, Воронеж, Оренбург, Челябинск, Ташкент.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= §06 КОНТАКТ ======================= -->
+<section id="contact" aria-labelledby="t06">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-code">§ 06</span>
+      <h2 class="sec-title" id="t06">Контакт</h2>
+      <span class="sec-note note">Ответим в рабочие часы</span>
+    </div>
+    <div class="contact">
+      <div class="ct-info">
+        <span class="eyebrow">Заявка</span>
+        <h2 aria-hidden="true">Обсудить проект</h2>
+        <ul class="ct-list">
+          <li><span class="k">Почта</span><span class="v"><a href="mailto:mail@marksgroup.ru">mail@marksgroup.ru</a></span></li>
+          <li><span class="k">Телефон</span><span class="v"><a href="tel:+74951201226">+7 (495) 120-12-26</a></span></li>
+          <li><span class="k">Адрес</span><span class="v">Москва, 3-я ул. Ямского Поля, д. 20, с. 1, офис 704</span></li>
+        </ul>
+      </div>
+      <form id="leadForm" action="/footerForm" method="post" novalidate>
+        <p class="f-cap">Форма МГ-01 — запрос на проектирование</p>
+        <div class="f-field">
+          <label for="fName">01 — Ваше имя</label>
+          <input id="fName" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="f-field">
+          <label for="fPhone">02 — Телефон</label>
+          <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+        </div>
+        <div class="f-field">
+          <label for="fText">03 — Текст запроса</label>
+          <textarea id="fText" name="message" rows="3" required></textarea>
+        </div>
+        <label class="f-consent">
+          <input type="checkbox" name="consent" required>
+          <span>Согласен на обработку персональных данных</span>
+        </label>
+        <button class="f-submit" type="submit">Отправить</button>
+        <p class="f-status" id="fStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ======================= ПОДВАЛ ======================= -->
+<footer>
+  <div class="ft">
+    <div class="ft-col">
+      <span class="k">MARKS GROUP</span>
+      <ul>
+        <li>Генеральное проектирование —</li>
+        <li>от концепции до ввода объекта</li>
+        <li>в эксплуатацию</li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <span class="k">Контакты</span>
+      <ul>
+        <li><a href="mailto:mail@marksgroup.ru">mail@marksgroup.ru</a></li>
+        <li><a href="tel:+74951201226">+7 (495) 120-12-26</a></li>
+        <li>Москва, 3-я ул. Ямского Поля,</li>
+        <li>д. 20, с. 1, офис 704</li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <span class="k">Офисы</span>
+      <ul>
+        <li>Москва · Санкт-Петербург</li>
+        <li>Воронеж · Оренбург</li>
+        <li>Челябинск · Ташкент</li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <span class="k">Навигация</span>
+      <ul>
+        <li><a href="#">Проекты</a> · <a href="#">О компании</a></li>
+        <li><a href="#">Контакты</a> · <a href="#">HR портал</a></li>
+        <li><a href="#" rel="noopener">VK</a> · <a href="#" rel="noopener">Telegram</a> · <a href="#" rel="noopener">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2026 MARKS GROUP</span>
+    <span>МГ-ДОК · ред. 01 · <a href="https://marksgroup.org" lang="en">English version</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  /* --- мобильное меню --- */
+  var btn=document.getElementById('menuBtn'),nav=document.getElementById('nav');
+  if(btn){btn.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.textContent=open?'Закрыть':'Меню';
+  });}
+
+  /* --- предпросмотр проектов: мгновенная смена, без анимации --- */
+  var rows=document.querySelectorAll('.pt-row');
+  var imgs=document.querySelectorAll('.preview .stack img');
+  var cap=document.getElementById('prevCap');
+  function show(i,title){
+    imgs.forEach(function(im,k){im.classList.toggle('is-on',k===i);});
+    rows.forEach(function(r,k){r.classList.toggle('is-active',parseInt(r.dataset.i,10)===i);});
+    if(cap&&title)cap.textContent=title;
+  }
+  rows.forEach(function(row){
+    var i=parseInt(row.dataset.i,10);
+    var title=row.querySelector('.c-obj').textContent;
+    row.addEventListener('mouseenter',function(){show(i,title);});
+    row.addEventListener('focus',function(){show(i,title);});
+  });
+
+  /* --- форма: состояние отправки --- */
+  var form=document.getElementById('leadForm'),st=document.getElementById('fStatus');
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.reportValidity())return;
+    var b=form.querySelector('.f-submit');
+    b.disabled=true;b.textContent='Отправлено';
+    st.textContent='Статус: заявка принята. Мы свяжемся с вами.';
+  });}
+})();
+</script>
+
+<script>/*awards-collapse2*/(function(){try{var P=/\u041f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b|\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442|\u0414\u0438\u043f\u043b\u043e\u043c|TOP\s?10|\u0422\u043e\u043f-?\d/;var best=null,bn=0;[].forEach.call(document.querySelectorAll("ul,ol,tbody,div,section,dl"),function(e){var k=e.children,n=0;for(var i=0;i<k.length;i++){var t=k[i].textContent||"";if(P.test(t)&&t.length<240)n++;}if(n>bn){bn=n;best=e;}});if(!best||bn<10)return;var rows=[].slice.call(best.children).filter(function(c){var t=c.textContent||"";return P.test(t)&&t.length<240;});var N=6,hid=rows.slice(N);hid.forEach(function(r){r.setAttribute("data-awh","1");r.style.display="none";});var b=document.createElement("button");b.type="button";b.className="awards-more";b.setAttribute("aria-expanded","false");var lbl="\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0441\u0435 \u043d\u0430\u0433\u0440\u0430\u0434\u044b \u2014 "+rows.length;b.textContent=lbl;b.style.cssText="display:inline-block;margin:1.6rem 0 .5rem;font:600 .72rem/1 inherit;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.7rem;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;border-radius:3px;opacity:.9";var open=false;b.onclick=function(){open=!open;hid.forEach(function(r){r.style.display=open?"":"none";});b.textContent=open?"\u0421\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u043d\u0430\u0433\u0440\u0430\u0434\u044b":lbl;b.setAttribute("aria-expanded",open?"true":"false");};var w=document.createElement("div");w.style.cssText="text-align:center;width:100%";w.appendChild(b);if(best.parentElement)best.parentElement.insertBefore(w,best.nextSibling);else best.appendChild(w);}catch(e){}})();</script>
+<script>/*mg-countup*/(function(){var rm=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;var scopes=[].slice.call(document.querySelectorAll(".stats"));var items=[];scopes.forEach(function(sc){var els=sc.classList&&sc.classList.contains("hero-num")?[sc]:[].slice.call(sc.querySelectorAll("*"));els.forEach(function(el){var tn=null,cn=el.childNodes,i;for(i=0;i<cn.length;i++){if(cn[i].nodeType===3&&/\d/.test(cn[i].nodeValue)){tn=cn[i];break;}}if(!tn)return;var m=tn.nodeValue.match(/^(\s*)([\d\s]*\d)(\D[\s\S]*)?$/);if(!m)return;var val=parseInt(m[2].replace(/\D/g,""),10);if(isNaN(val)||val<10)return;items.push({tn:tn,pre:m[1],suf:m[3]||"",val:val});});});if(!items.length)return;if(rm||!("IntersectionObserver" in window))return;function run(it){var t0=null,dur=1400;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);p=1-Math.pow(1-p,3);it.tn.nodeValue=it.pre+Math.round(it.val*p)+it.suf;if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var it=e.target.__ci;if(it)run(it);io.unobserve(e.target);}});},{threshold:.5});items.forEach(function(it){it.tn.nodeValue=it.pre+"0"+it.suf;var h=it.tn.parentNode;h.__ci=it;io.observe(h);});})();</script>
+</body>
+</html>

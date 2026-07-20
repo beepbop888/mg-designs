@@ -1,0 +1,69 @@
+/* clone-ui: consolidated interaction layer (injected on every page) */
+/* swipers -> native scroll */
+.swiper .swiper-wrapper{transform:none!important;transition:none!important;
+  overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;cursor:grab}
+.swiper .swiper-wrapper::-webkit-scrollbar{display:none}
+.swiper .swiper-wrapper.mg-dragging{cursor:grabbing}
+.swiper .swiper-slide{flex-shrink:0;max-width:100%}
+/* marquee geometry after prune (2x unique set) */
+[class*="SliderHeader__marquee"]{width:max-content!important}
+/* accordion: closed description stays visible at translate(0) — matches real */
+.BlockHeaderMain_toggle_blockHeader__iuUPd svg{transition:transform .4s cubic-bezier(.04,.68,.29,1.28)}
+/* nav dropdowns */
+.mg-dd{position:absolute;top:100%;left:0;min-width:230px;background:#F6F6F6;
+  box-shadow:0 8px 24px rgba(42,87,130,.16);padding:.5rem 0;z-index:9990;display:none}
+.mg-dd.open{display:block}
+.mg-dd a{display:block;padding:.6rem 1.2rem;font-family:var(--font-raleway,Raleway,sans-serif);
+  color:#1D2E43;white-space:nowrap;font-size:.9rem}
+.mg-dd a:hover{background:#EBECEE}
+/* cookie banner fade */
+.CookieConsent{transition:opacity .3s ease,transform .3s ease}
+/* page cross-fade on static navigation (Chromium) */
+@view-transition{navigation:auto}
+/* form success state */
+.mg-form-ok{font-family:var(--font-raleway,Raleway,sans-serif);color:#1D2E43;
+  font-size:1.25rem;line-height:1.5;padding:2rem 0}
+
+[class*="SliderHeader__marquee"] img[src*="14."]{width:170px;height:40px}
+[class*="SliderHeader__marquee"] img[src*="15."]{width:160px;height:40px}
+/* logo dot (real: 18px navy dot left of wordmark) */
+a[class*="logo-block"]{display:flex;align-items:center;gap:10px}
+[class*="logo-circle"]{width:18px;height:18px;border-radius:50%;background:#1D2E43;flex:none;order:-1}
+@media (max-width:768px){[class*="logo-circle"]{width:16px;height:16px}}
+/* cursor bubble label: real is 16px #FFF */
+.cursor span{font-size:16px!important;color:#fff!important}
+/* swiper conversion for ALL wrappers (incl. Ещё по теме without .swiper parent) */
+.swiper-wrapper{transform:none!important;transition:none!important;
+  overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;cursor:grab}
+.swiper-wrapper::-webkit-scrollbar{display:none}
+.swiper-wrapper img, .swiper-wrapper a{-webkit-user-drag:none;user-drag:none}
+/* full-width in-flow nav dropdown (real presentation) */
+.mg-ddx{overflow:hidden;max-height:0;transition:max-height .3s ease;background:#F6F6F6;width:100%}
+.mg-ddx.open{max-height:260px}
+.mg-ddx ul{padding:12px 0 32px;margin:0;list-style:none;display:flex;flex-direction:column;gap:20px}
+.mg-ddx a{display:block;text-decoration:none}
+.mg-ddx .t{font-size:16px;color:#000;font-family:var(--font-raleway,Raleway,sans-serif)}
+.mg-ddx .d{font-size:14px;color:#959DA6;margin-top:4px;max-width:560px;font-family:var(--font-raleway,Raleway,sans-serif)}
+/* cookie banner mobile: fixed + stacked (real) */
+@media (max-width:768px){
+  .CookieConsent{position:fixed!important;left:0!important;right:0!important;bottom:0!important;
+    flex-direction:column!important;align-items:stretch!important;padding:16px 0 0!important}
+  #rcc-confirm-button{width:100%!important;margin:12px 0 0!important}
+}
+
+/* project pages: pre-wrap &nbsp; description paragraphs overflow the viewport on mobile → horizontal scroll */
+@media screen and (max-width:700px){ .app-shell, .app-shell__content{ overflow-x:hidden } }
+/* Компетенции sub-panel: real desktop layout is 2 columns (a mobile column rule leaked out of its @media
+   during CSS extraction and flattened it to one column). Restore the 2-col grid on desktop only. */
+@media (min-width:769px){
+  .mg-panel [class*="_blocksContainer_"]{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important}
+  .mg-panel [class*="_block_content_name_wrapper_"]{width:calc(50% - 1.88rem)!important}
+}
+/* «Смотреть» bubble zones: project-card sliders (real hides cursor there) */
+[class*="slider_card_container"] .swiper-slide, .swiper-slide[class*="swiper_container_item"]{cursor:none}
+/* project-card grids/lists (bottom of project + listing pages): any project-link card wrapping an image */
+a[href*="project_"]:has(img), a[href*="project?"]:has(img),
+[class*="_list_"] a:has(img), [class*="grid"] a[href*="project"]:has(img){cursor:none}
+a[href*="project_"]:has(img) *, [class*="_list_"] a:has(img) *{cursor:none}

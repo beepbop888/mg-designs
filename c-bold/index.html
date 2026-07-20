@@ -1,0 +1,958 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MARKS GROUP — Генеральное проектирование полного цикла</title>
+<meta name="description" content="MARKS GROUP — архитектурно-инжиниринговое бюро. Генеральное проектирование — от концепции до ввода объекта в эксплуатацию. 1300 специалистов, 200+ проектов, 20+ лет на рынке.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0C0E12;
+    --bg2:#10131A;
+    --navy:#1D2E43;
+    --navy-glow:rgba(94,150,214,.35);
+    --accent:#6FA5E0;          /* холодный свет прожекторов ночной стройки */
+    --accent-dim:rgba(111,165,224,.16);
+    --ink:#EDF1F7;
+    --ink-2:#9AA6B8;
+    --ink-3:#5C6878;
+    --hair:rgba(111,165,224,.22);
+    --display:'Unbounded',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,.9,.28,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+  ::selection{background:var(--navy);color:var(--ink)}
+
+  .wrap{width:min(1360px,92vw);margin-inline:auto}
+
+  /* ============ glowing hairlines (свет стройплощадки) ============ */
+  .hairline{
+    height:1px;border:0;width:100%;
+    background:linear-gradient(90deg,transparent,var(--accent) 35%,var(--accent) 65%,transparent);
+    opacity:.45;box-shadow:0 0 18px 1px var(--navy-glow);
+  }
+
+  /* ============ header ============ */
+  .site-header{
+    position:fixed;inset:0 0 auto 0;z-index:60;
+    padding:0;transition:background .4s var(--ease),box-shadow .4s var(--ease);
+  }
+  .site-header.scrolled{
+    background:rgba(12,14,18,.82);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 var(--hair);
+  }
+  .header-in{
+    display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+    padding:1.1rem 0;
+  }
+  .logo{
+    font-family:var(--display);font-weight:900;font-size:1.05rem;letter-spacing:.12em;
+    white-space:nowrap;
+  }
+  .logo span{color:var(--accent)}
+  .main-nav{display:flex;align-items:center;gap:1.6rem}
+  .main-nav a{
+    font-size:.82rem;font-weight:500;letter-spacing:.06em;color:var(--ink-2);
+    padding:.3rem 0;position:relative;transition:color .25s;
+  }
+  .main-nav a::after{
+    content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--accent);
+    box-shadow:0 0 8px var(--accent);transition:right .3s var(--ease);
+  }
+  .main-nav a:hover{color:var(--ink)}
+  .main-nav a:hover::after{right:0}
+  .cta-btn{
+    display:inline-block;font-family:var(--body);font-weight:600;font-size:.82rem;letter-spacing:.05em;
+    color:var(--ink);border:1px solid var(--hair);padding:.65rem 1.4rem;border-radius:2px;
+    background:linear-gradient(180deg,rgba(29,46,67,.55),rgba(29,46,67,.25));
+    box-shadow:inset 0 0 0 0 var(--accent-dim),0 0 0 0 var(--navy-glow);
+    transition:box-shadow .35s var(--ease),border-color .35s,transform .35s var(--ease);
+    cursor:pointer;
+  }
+  .cta-btn:hover{
+    border-color:var(--accent);
+    box-shadow:inset 0 0 24px 2px var(--accent-dim),0 0 28px 2px var(--navy-glow);
+    transform:translateY(-1px);
+  }
+  .burger{
+    display:none;background:none;border:1px solid var(--hair);border-radius:2px;
+    width:44px;height:44px;cursor:pointer;position:relative;z-index:80;
+  }
+  .burger i,.burger::before,.burger::after{
+    content:"";position:absolute;left:11px;right:11px;height:2px;background:var(--ink);
+    transition:transform .3s var(--ease),opacity .3s;
+  }
+  .burger::before{top:15px}
+  .burger i{top:21px;font-style:normal}
+  .burger::after{top:27px}
+  .burger[aria-expanded="true"]::before{transform:translateY(6px) rotate(45deg)}
+  .burger[aria-expanded="true"] i{opacity:0}
+  .burger[aria-expanded="true"]::after{transform:translateY(-6px) rotate(-45deg)}
+  .mobile-menu{
+    position:fixed;inset:0;z-index:70;background:rgba(12,14,18,.97);
+    display:none;flex-direction:column;justify-content:center;padding:0 8vw;gap:.4rem;
+  }
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{
+    font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,5vw,2rem);
+    padding:.55rem 0;color:var(--ink-2);border-bottom:1px solid rgba(111,165,224,.1);
+  }
+  .mobile-menu a:hover{color:var(--accent)}
+  @media (max-width:1080px){
+    .main-nav,.header-cta{display:none}
+    .burger{display:block}
+  }
+
+  /* ============ hero ============ */
+  .hero{
+    position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+    isolation:isolate;overflow:hidden;
+  }
+  .hero-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+  .hero-media img{
+    width:100%;height:118%;object-fit:cover;object-position:center 30%;
+    will-change:transform;
+  }
+  .mg-slides img{position:absolute;left:0;top:0;opacity:0;transition:opacity 1.5s ease}
+  .mg-slides img.mg-on{opacity:1}
+  .hero::before{ /* кинематографический градиент */
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:
+      linear-gradient(180deg,rgba(12,14,18,.62) 0%,rgba(12,14,18,.15) 34%,rgba(12,14,18,.55) 68%,var(--bg) 100%),
+      linear-gradient(75deg,rgba(12,14,18,.75) 0%,rgba(29,46,67,.25) 55%,transparent 100%);
+  }
+  .hero-inner{padding-bottom:clamp(3rem,7vh,5.5rem)}
+  .hero-kicker{
+    font-size:.8rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);
+    margin-bottom:1.4rem;text-shadow:0 0 22px var(--navy-glow);
+  }
+  .hero h1{
+    font-family:var(--display);font-weight:900;line-height:.96;letter-spacing:.01em;
+    font-size:clamp(2.6rem,10.5vw,9.5rem);
+    text-shadow:0 6px 60px rgba(0,0,0,.55);
+  }
+  .hero h1 .row{display:block;overflow:hidden}
+  .hero h1 .row > span{display:inline-block}
+  .hero-tagline{
+    max-width:34em;margin-top:1.6rem;color:var(--ink-2);font-size:clamp(1rem,1.4vw,1.2rem);
+    font-weight:400;
+  }
+  .hero-tagline strong{color:var(--ink);font-weight:500}
+  /* награды в герое — тёмно-стеклянные пилюли со светящейся нитью */
+  .hero-awards{
+    display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem;list-style:none;
+  }
+  .hero-awards li{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-size:clamp(.72rem,.9vw,.82rem);letter-spacing:.04em;color:var(--ink);
+    padding:.5rem .95rem;border-radius:2px;
+    border:1px solid var(--hair);
+    background:linear-gradient(180deg,rgba(29,46,67,.5),rgba(29,46,67,.2));
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    box-shadow:inset 0 0 0 0 var(--accent-dim),0 0 0 0 var(--navy-glow);
+    transition:border-color .35s,box-shadow .35s var(--ease);
+  }
+  .hero-awards li::before{
+    content:"";width:6px;height:6px;border-radius:50%;flex:none;
+    background:var(--accent);box-shadow:0 0 10px 1px var(--accent);
+  }
+  .hero-awards li:hover{
+    border-color:var(--accent);
+    box-shadow:inset 0 0 20px 1px var(--accent-dim),0 0 24px 1px var(--navy-glow);
+  }
+  .hero-foot{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+    margin-top:clamp(2rem,5vh,3.5rem);padding-top:1.4rem;border-top:1px solid var(--hair);
+  }
+  .hero-project{font-size:.82rem;color:var(--ink-2);letter-spacing:.04em}
+  .hero-project a{color:var(--ink);border-bottom:1px solid var(--hair);transition:color .25s,border-color .25s}
+  .hero-project a:hover{color:var(--accent);border-color:var(--accent)}
+  .scroll-cue{
+    display:flex;align-items:center;gap:.8rem;font-size:.72rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--ink-3);
+  }
+  .scroll-cue::after{
+    content:"";width:1px;height:52px;
+    background:linear-gradient(180deg,var(--accent),transparent);
+    box-shadow:0 0 10px var(--navy-glow);
+    animation:cue 2.2s var(--ease) infinite;transform-origin:top;
+  }
+  @keyframes cue{0%{transform:scaleY(0)}45%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+  /* анимация появления героя */
+  .anim .hero-kicker,.anim .hero-tagline,.anim .hero-awards,.anim .hero-foot{
+    opacity:0;transform:translateY(26px);
+    animation:rise 1s var(--ease) forwards;
+  }
+  .anim .hero h1 .row > span{transform:translateY(110%);animation:sweep 1.1s var(--ease) forwards}
+  .anim .hero-kicker{animation-delay:.15s}
+  .anim .hero h1 .row:nth-child(1) > span{animation-delay:.3s}
+  .anim .hero h1 .row:nth-child(2) > span{animation-delay:.42s}
+  .anim .hero-tagline{animation-delay:.7s}
+  .anim .hero-awards{animation-delay:.82s}
+  .anim .hero-foot{animation-delay:.95s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes sweep{to{transform:none}}
+
+  /* ============ разделы ============ */
+  section{position:relative}
+  .sec-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+    margin-bottom:clamp(2.4rem,6vh,4rem);
+  }
+  .sec-title{
+    font-family:var(--display);font-weight:800;line-height:1.02;
+    font-size:clamp(1.9rem,4.6vw,3.6rem);
+  }
+  .sec-num{
+    font-family:var(--display);font-weight:400;color:var(--accent);font-size:.9rem;
+    letter-spacing:.24em;text-shadow:0 0 18px var(--navy-glow);
+  }
+
+  /* ============ stat band ============ */
+  .stats{padding:clamp(4.5rem,11vh,8rem) 0}
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center;
+  }
+  .stat b{
+    display:block;font-family:var(--display);font-weight:900;line-height:1;
+    font-size:clamp(2.8rem,7.5vw,6.5rem);color:var(--ink);
+    text-shadow:0 0 34px var(--navy-glow),0 0 90px rgba(94,150,214,.22);
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .stat b span[data-count]{display:inline;font-size:inherit;color:inherit;margin:0;letter-spacing:inherit;line-height:1}
+  .stat b .plus{display:inline;font-size:.5em;line-height:1;color:var(--accent);vertical-align:baseline;margin:0 0 0 .04em}
+  .stat b sup{font-size:.42em;color:var(--accent);vertical-align:.55em}
+  .stat span{
+    display:block;margin-top:1rem;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-2);
+  }
+  @media (max-width:720px){.stats-grid{grid-template-columns:1fr;gap:3rem}}
+
+  /* ============ competencies ============ */
+  .comp{padding:clamp(4rem,10vh,7rem) 0}
+  .comp-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--hair);border-left:1px solid var(--hair);
+  }
+  .comp-cell{
+    padding:2rem 1.6rem 2.4rem;min-height:200px;position:relative;
+    border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    display:flex;flex-direction:column;justify-content:space-between;gap:1.6rem;
+    transition:background .4s var(--ease);
+    background:linear-gradient(180deg,transparent,transparent);
+    overflow:hidden;
+  }
+  .comp-cell::after{ /* прожектор при наведении */
+    content:"";position:absolute;inset:auto -30% -55% -30%;height:70%;
+    background:radial-gradient(ellipse at center,var(--accent-dim),transparent 70%);
+    opacity:0;transition:opacity .45s var(--ease);pointer-events:none;
+  }
+  .comp-cell:hover{background:rgba(29,46,67,.28)}
+  .comp-cell:hover::after{opacity:1}
+  .comp-cell i{
+    font-style:normal;font-family:var(--display);font-weight:400;font-size:.85rem;
+    color:var(--accent);letter-spacing:.18em;text-shadow:0 0 14px var(--navy-glow);
+  }
+  .comp-cell h3{
+    font-family:var(--display);font-weight:600;font-size:clamp(.95rem,1.3vw,1.15rem);
+    line-height:1.35;letter-spacing:.02em;
+  }
+  @media (max-width:1000px){.comp-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:480px){.comp-grid{grid-template-columns:1fr}.comp-cell{min-height:0}}
+
+  /* ============ projects: cinematic bands ============ */
+  .projects{padding-top:clamp(4rem,10vh,7rem)}
+  .band{
+    display:block;position:relative;height:clamp(480px,92vh,860px);
+    overflow:hidden;isolation:isolate;
+  }
+  .band-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+  .band-media img{
+    width:100%;height:120%;object-fit:cover;will-change:transform;
+    transform:translateY(0);transition:none;
+  }
+  .band::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,rgba(12,14,18,.55) 0%,rgba(12,14,18,.06) 40%,rgba(12,14,18,.78) 88%,var(--bg) 100%);
+    transition:background .5s;
+  }
+  .band-in{
+    position:absolute;inset:auto 0 0 0;
+    width:min(1360px,92vw);margin-inline:auto;
+    padding-bottom:clamp(2rem,5vh,3.6rem);
+  }
+  .band-idx{
+    font-family:var(--display);font-weight:400;font-size:.85rem;color:var(--accent);
+    letter-spacing:.3em;text-shadow:0 0 16px var(--navy-glow);
+  }
+  .band-title{
+    font-family:var(--display);font-weight:800;line-height:1.12;letter-spacing:.01em;
+    font-size:clamp(1.7rem,5.2vw,4.6rem);margin:.7rem 0 1.15rem;
+    text-shadow:0 4px 44px rgba(0,0,0,.6);
+    overflow:visible;
+  }
+  .band-title span{display:inline-block}
+  .band-sub{color:var(--ink-2);max-width:38em;font-size:clamp(.9rem,1.2vw,1.05rem)}
+  .band-meta{
+    display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:1.4rem;padding-top:1.1rem;
+    border-top:1px solid var(--hair);
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  }
+  .band-meta b{color:var(--ink);font-weight:500}
+  .band-go{
+    position:absolute;right:0;bottom:clamp(2rem,5vh,3.6rem);
+    font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+    opacity:0;transform:translateX(-14px);transition:opacity .4s var(--ease),transform .4s var(--ease);
+  }
+  .band:hover .band-go,.band:focus-visible .band-go{opacity:1;transform:none}
+  .band:hover .band-media img{filter:brightness(1.08)}
+  .band-media img{transition:filter .6s var(--ease)}
+  @media (max-width:900px){.band-go{display:none}}
+
+  /* горизонтальная кинолента остальных проектов */
+  .reel-wrap{padding:clamp(3rem,8vh,5rem) 0 clamp(3.5rem,9vh,6rem)}
+  .reel-head{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;margin-bottom:1.8rem}
+  .reel-hint{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+  .reel{
+    display:flex;gap:1.2rem;overflow-x:auto;padding:0 max(4vw,calc((100vw - 1360px)/2)) 1.4rem;
+    scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--navy) transparent;
+  }
+  .reel::-webkit-scrollbar{height:4px}
+  .reel::-webkit-scrollbar-thumb{background:var(--navy);border-radius:2px}
+  .reel-card{
+    flex:0 0 clamp(270px,32vw,420px);scroll-snap-align:start;
+    position:relative;border:1px solid rgba(111,165,224,.12);border-radius:3px;overflow:hidden;
+    background:var(--bg2);transition:border-color .35s,box-shadow .35s,transform .5s var(--ease);
+  }
+  .reel-card:hover{
+    border-color:var(--accent);box-shadow:0 0 32px 2px var(--navy-glow);transform:translateY(-6px);
+  }
+  .reel-card figure{height:clamp(200px,26vw,300px);overflow:hidden;margin:0}
+  .reel-card img{
+    width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);
+  }
+  .reel-card:hover img{transform:scale(1.06)}
+  .reel-card figcaption,.reel-card .reel-txt{padding:1.2rem 1.3rem 1.4rem}
+  .reel-card h3{
+    font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.35;margin-bottom:.5rem;
+  }
+  .reel-card p{font-size:.78rem;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+
+  /* ============ awards ============ */
+  .awards{padding:clamp(4rem,10vh,7rem) 0}
+  .awards-list{
+    list-style:none;margin-top:clamp(1.8rem,4vh,2.6rem);
+    border-top:1px solid rgba(111,165,224,.18);
+  }
+  .award-row{
+    position:relative;display:grid;
+    grid-template-columns:3.4rem minmax(0,1fr) auto;
+    column-gap:1.4rem;align-items:baseline;
+    padding:.95rem 1rem .95rem 1.15rem;
+    border-bottom:1px solid rgba(111,165,224,.1);
+    transition:background .35s;
+  }
+  .award-row::before{
+    content:"";position:absolute;left:0;top:14%;bottom:14%;width:2px;border-radius:2px;
+    background:linear-gradient(180deg,var(--accent),transparent);
+    opacity:0;box-shadow:0 0 12px var(--accent);transition:opacity .35s;
+  }
+  .award-row:hover{background:linear-gradient(90deg,rgba(29,46,67,.34),transparent)}
+  .award-row:hover::before{opacity:1}
+  .award-row .yr{
+    font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--accent);
+    letter-spacing:.03em;text-shadow:0 0 12px var(--navy-glow);
+  }
+  .award-row .meta{display:block;min-width:0}
+  .award-row .ttl{font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.35;display:block}
+  .award-row .nom{display:block;margin-top:.28rem;font-size:.82rem;color:var(--ink-2);line-height:1.45}
+  .award-row .prz{
+    font-style:normal;align-self:center;white-space:nowrap;
+    font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+    padding:.4em .75em;border-radius:2px;
+  }
+  .prz--win{color:var(--accent);border:1px solid rgba(111,165,224,.4);
+    background:rgba(111,165,224,.08);text-shadow:0 0 12px var(--navy-glow)}
+  .prz--alt{color:var(--ink-3);border:1px solid rgba(111,165,224,.16)}
+  @media (max-width:640px){
+    .award-row{grid-template-columns:2.6rem minmax(0,1fr);row-gap:.55rem;padding-right:0}
+    .award-row .prz{grid-column:2;justify-self:start;align-self:start}
+  }
+
+  /* ============ about ============ */
+  .about{
+    position:relative;isolation:isolate;overflow:hidden;
+    padding:clamp(5rem,14vh,9rem) 0;
+  }
+  .about-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+  .about-media img{width:100%;height:120%;object-fit:cover;will-change:transform;filter:brightness(.9)}
+  .about::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(90deg,rgba(12,14,18,.94) 0%,rgba(12,14,18,.86) 46%,rgba(12,14,18,.5) 100%),
+               linear-gradient(180deg,var(--bg) 0%,transparent 14%,transparent 86%,var(--bg) 100%);
+  }
+  .about-in{max-width:56em}
+  .about p{color:var(--ink-2);margin-top:1.3rem;font-size:clamp(.98rem,1.25vw,1.12rem)}
+  .about p strong{color:var(--ink);font-weight:500}
+  .about-line{
+    margin-top:2.4rem;display:flex;gap:2.4rem;flex-wrap:wrap;
+    font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+  }
+  .about-line b{color:var(--accent);font-weight:500}
+
+  /* ============ contact ============ */
+  .contact{padding:clamp(4.5rem,12vh,8rem) 0}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,6vw,5rem)}
+  .contact h2{margin-bottom:1.4rem}
+  .contact-lead{color:var(--ink-2);max-width:30em}
+  .contact-details{margin-top:2.4rem;display:grid;gap:1rem;font-size:.95rem}
+  .contact-details a{color:var(--ink);border-bottom:1px solid var(--hair);transition:color .25s,border-color .25s}
+  .contact-details a:hover{color:var(--accent);border-color:var(--accent)}
+  .contact-details span{color:var(--ink-3);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+  form{display:grid;gap:1.3rem;align-content:start}
+  .field label{
+    display:block;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+    margin-bottom:.55rem;
+  }
+  .field input,.field textarea{
+    width:100%;background:rgba(29,46,67,.22);border:1px solid rgba(111,165,224,.16);
+    color:var(--ink);font:inherit;padding:.9rem 1.1rem;border-radius:2px;
+    transition:border-color .3s,box-shadow .3s;
+  }
+  .field input:focus,.field textarea:focus{
+    outline:none;border-color:var(--accent);box-shadow:0 0 22px 0 var(--navy-glow);
+  }
+  .field textarea{min-height:120px;resize:vertical}
+  .consent{display:flex;gap:.8rem;align-items:flex-start;font-size:.82rem;color:var(--ink-2)}
+  .consent input{width:17px;height:17px;margin-top:.2rem;accent-color:var(--accent);flex:none;cursor:pointer}
+  .submit-btn{
+    font-family:var(--display);font-weight:600;font-size:.9rem;letter-spacing:.08em;
+    background:var(--navy);color:var(--ink);border:1px solid var(--hair);
+    padding:1.05rem 2.6rem;border-radius:2px;cursor:pointer;justify-self:start;
+    box-shadow:0 0 0 0 var(--navy-glow);
+    transition:box-shadow .35s var(--ease),transform .35s var(--ease),background .35s;
+  }
+  .submit-btn:hover{box-shadow:0 0 34px 4px var(--navy-glow);transform:translateY(-2px)}
+  .form-ok{
+    display:none;padding:1rem 1.2rem;border:1px solid var(--accent);border-radius:2px;
+    color:var(--accent);font-size:.9rem;box-shadow:0 0 24px 0 var(--navy-glow);
+  }
+  .form-ok.show{display:block}
+  @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+  /* ============ footer ============ */
+  footer{border-top:1px solid var(--hair);padding:3.5rem 0 2.5rem;background:var(--bg2)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem}
+  .foot-grid h4{
+    font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1rem;
+  }
+  .foot-grid ul{list-style:none;display:grid;gap:.55rem;font-size:.88rem}
+  .foot-grid a{color:var(--ink-2);transition:color .25s}
+  .foot-grid a:hover{color:var(--accent)}
+  .foot-brand p{color:var(--ink-3);font-size:.85rem;max-width:24em;margin-top:1rem}
+  .foot-bottom{
+    margin-top:3rem;padding-top:1.4rem;border-top:1px solid rgba(111,165,224,.1);
+    display:flex;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;
+    font-size:.78rem;color:var(--ink-3);
+  }
+  @media (max-width:860px){.foot-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
+
+  /* ============ scroll reveal (только при JS + без reduced-motion) ============ */
+  .anim [data-reveal]{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .anim [data-reveal].in{opacity:1;transform:none}
+  .anim .band-title span{opacity:0;transform:translateY(26%);transition:transform 1s var(--ease) .15s,opacity .8s var(--ease) .15s}
+  .anim .band.in .band-title span{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .anim [data-reveal],.anim .band-title span,.anim .hero-kicker,.anim .hero-tagline,
+    .anim .hero-awards,.anim .hero-foot,.anim .hero h1 .row > span{opacity:1 !important;transform:none !important}
+    .hero-media img,.band-media img,.about-media img{transform:none !important;height:100%}
+    .scroll-cue::after{animation:none}
+  }
+</style>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="top">
+  <div class="wrap header-in">
+    <a class="logo" href="./" aria-label="MARKS GROUP — на главную">MARKS<span>&nbsp;</span>GROUP</a>
+    <nav class="main-nav" aria-label="Основная навигация">
+      <a href="./">Главная</a>
+      <a href="#">Проекты</a>
+      <a href="#awards">Публикации</a>
+      <a href="#">О компании</a>
+      <a href="#">Контакты</a>
+      <a href="#">HR портал</a>
+      <a href="https://marksgroup.org" lang="en">EN</a>
+    </nav>
+    <a class="cta-btn header-cta" href="#contact">Обсудить проект</a>
+    <button class="burger" aria-expanded="false" aria-controls="mmenu" aria-label="Открыть меню"><i></i></button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mmenu" aria-label="Мобильное меню">
+  <a href="./">Главная</a>
+  <a href="#">Проекты</a>
+  <a href="#awards">Публикации</a>
+  <a href="#">О компании</a>
+  <a href="#">Контакты</a>
+  <a href="#">HR портал</a>
+  <a href="https://marksgroup.org" lang="en">EN</a>
+  <a href="#contact">Обсудить проект</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="MARKS GROUP — генеральное проектирование">
+  <div class="hero-media mg-slides" data-parallax>
+    <img src="../assets/img/56e61d08_file_metro_1705674976737_96.png.jpg"
+         alt="Станция метро «Народное ополчение», Москва — подземный вестибюль"
+         width="1920" height="1080" loading="eager" fetchpriority="high"
+         data-cap="В кадре — <a href='#'>Метро «Народное ополчение»</a> · Москва">
+    <img src="../assets/img/529d6426_file_akhma_1719911619271_2354.png.jpg"
+         alt="МФК AKHMAT TOWER — 435 м, Грозный" width="1920" height="1080" loading="lazy"
+         data-cap="В кадре — <a href='#'>МФК AKHMAT TOWER</a>, 435 м · Грозный">
+    <img src="../assets/img/543b0b39_file_prime_1713010715729_7649.png.jpg"
+         alt="ЖК PRIME PARK, Москва" width="1920" height="1080" loading="lazy"
+         data-cap="В кадре — <a href='#'>ЖК PRIME PARK</a> · Москва">
+    <img src="../assets/img/50004b70_file_bol.j_1713342301110_3807.jpg.jpg"
+         alt="Большой театр, Москва" width="1920" height="1080" loading="lazy"
+         data-cap="В кадре — <a href='#'>Большой театр</a> · Москва">
+  </div>
+  <div class="wrap hero-inner">
+    <p class="hero-kicker">Архитектурно-инжиниринговое бюро · Москва</p>
+    <h1>
+      <span class="row"><span>MARKS</span></span>
+      <span class="row"><span>GROUP</span></span>
+    </h1>
+    <p class="hero-tagline"><strong>Генеральное проектирование</strong> — от концепции до ввода объекта в эксплуатацию. Архитектура, конструктив, инженерия, геотехника и цифровые технологии — полный цикл в одной команде.</p>
+    <ul class="hero-awards" aria-label="Награды и признание">
+      <li>«Лучший проектировщик жилья в России»</li>
+      <li>«BIM-компания года — 2025»</li>
+      <li>«100+ Awards — лучшая BIM-модель»</li>
+    </ul>
+    <div class="hero-foot">
+      <p class="hero-project">В кадре — <a href="#">Метро «Народное ополчение»</a> · Москва</p>
+      <p class="scroll-cue">Листайте</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAT BAND ============ -->
+<section class="stats" aria-label="Ключевые цифры">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat" data-reveal><b><span data-count="1300">1300</span></b><span>квалифицированных специалистов</span></div>
+      <div class="stat" data-reveal><b><span data-count="200">200</span><span class="plus">+</span></b><span>проектов реализовано</span></div>
+      <div class="stat" data-reveal><b><span data-count="20">20</span><span class="plus">+</span></b><span>лет на рынке</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline" aria-hidden="true">
+
+<!-- ============ COMPETENCIES ============ -->
+<section class="comp" id="competencies" aria-label="Компетенции">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 class="sec-title">Компетенции<br>полного цикла</h2>
+      <p class="sec-num">01 — 08</p>
+    </div>
+    <div class="comp-grid" data-reveal>
+      <div class="comp-cell"><i>01</i><h3>Архитектура и&nbsp;концепция</h3></div>
+      <div class="comp-cell"><i>02</i><h3>Градостроительство и&nbsp;генплан</h3></div>
+      <div class="comp-cell"><i>03</i><h3>Конструктив</h3></div>
+      <div class="comp-cell"><i>04</i><h3>Инженерия</h3></div>
+      <div class="comp-cell"><i>05</i><h3>Геотехника</h3></div>
+      <div class="comp-cell"><i>06</i><h3>Наука</h3></div>
+      <div class="comp-cell"><i>07</i><h3>Технологии</h3></div>
+      <div class="comp-cell"><i>08</i><h3>Цифровые технологии</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS: CINEMATIC BANDS ============ -->
+<section class="projects" id="projects" aria-label="Избранные проекты">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 class="sec-title">Проекты</h2>
+      <p class="sec-num">Избранное · 2005 — 2026</p>
+    </div>
+  </div>
+
+  <a class="band in-view" href="#" data-band>
+    <div class="band-media" data-parallax>
+      <img src="../assets/img/aa021cef_file_akhma_1719911619271_6708.png.jpg"
+           alt="МФК AKHMAT TOWER — вид на башню" width="1920" height="1080" loading="lazy">
+    </div>
+    <div class="band-in">
+      <p class="band-idx">01 / Грозный</p>
+      <h3 class="band-title"><span>МФК AKHMAT TOWER</span></h3>
+      <p class="band-sub">Встреча традиции нового поколения — многофункциональный высотный комплекс высотой 435 метров.</p>
+      <p class="band-meta"><b>262 000 м²</b> площадь <b>2016</b> старт <b>В работе</b> статус</p>
+      <span class="band-go">Смотреть проект →</span>
+    </div>
+  </a>
+
+  <a class="band" href="#" data-band>
+    <div class="band-media" data-parallax>
+      <img src="../assets/img/3d5ffb88_file_PY7A9_1719912447521_1600.jpg.jpg"
+           alt="Winepark — винодельня на побережье Чёрного моря" width="1920" height="1080" loading="lazy">
+    </div>
+    <div class="band-in">
+      <p class="band-idx">02 / Республика Крым</p>
+      <h3 class="band-title"><span>Winepark, центр винного туризма</span></h3>
+      <p class="band-sub">«Винный парк» — производственно-туристический комплекс на черноморском побережье: винодельня, дегустационные залы, ресторан.</p>
+      <p class="band-meta"><b>44 054 м²</b> площадь <b>2017</b> старт <b>Завершён</b> статус</p>
+      <span class="band-go">Смотреть проект →</span>
+    </div>
+  </a>
+
+  <a class="band" href="#" data-band>
+    <div class="band-media" data-parallax>
+      <img src="../assets/img/576a1ba6_file_metro_1705674976737_1940.png.jpg"
+           alt="Станция метро «Народное ополчение»" width="1920" height="1080" loading="lazy">
+    </div>
+    <div class="band-in">
+      <p class="band-idx">03 / Москва</p>
+      <h3 class="band-title"><span>Станция метро «Народное ополчение»</span></h3>
+      <p class="band-sub">Строительство котлована на глубине 32 метров — станция третьего пересадочного контура московского метро.</p>
+      <p class="band-meta"><b>32 м</b> глубина <b>2020</b> год <b>Завершён</b> статус</p>
+      <span class="band-go">Смотреть проект →</span>
+    </div>
+  </a>
+
+  <a class="band" href="#" data-band>
+    <div class="band-media" data-parallax>
+      <img src="../assets/img/50004b70_file_bol.j_1713342301110_3807.jpg.jpg"
+           alt="Большой театр — устройство подземной части" width="1920" height="1080" loading="lazy">
+    </div>
+    <div class="band-in">
+      <p class="band-idx">04 / Москва</p>
+      <h3 class="band-title"><span>Большой театр. Реконструкция</span></h3>
+      <p class="band-sub">Устройство подземной части Государственного Академического Большого театра — знаковый объект команды ПОДЗЕМПРОЕКТА, с которого началась история компании.</p>
+      <p class="band-meta"><b>2005</b> год <b>Геотехника</b> компетенция <b>Завершён</b> статус</p>
+      <span class="band-go">Смотреть проект →</span>
+    </div>
+  </a>
+
+  <a class="band" href="#" data-band>
+    <div class="band-media" data-parallax>
+      <img src="../assets/img/b22471dc_file_prime_1713010715729_2092.png.jpg"
+           alt="ЖК PRIME PARK — жилой комплекс премиум-класса" width="1920" height="1080" loading="lazy">
+    </div>
+    <div class="band-in">
+      <p class="band-idx">05 / Москва</p>
+      <h3 class="band-title"><span>ЖК PRIME PARK</span></h3>
+      <p class="band-sub">Инновационный жилой комплекс премиум-класса: современные технологии, экологичный дизайн, уникальные архитектурные решения.</p>
+      <p class="band-meta"><b>499 120 м²</b> площадь <b>42</b> этажа <b>В работе</b> статус</p>
+      <span class="band-go">Смотреть проект →</span>
+    </div>
+  </a>
+
+  <!-- горизонтальная кинолента -->
+  <div class="reel-wrap">
+    <div class="wrap reel-head" data-reveal>
+      <p class="sec-num">Ещё проекты</p>
+      <p class="reel-hint">Прокрутите вбок →</p>
+    </div>
+    <div class="reel" data-reveal tabindex="0" role="region" aria-label="Лента проектов — горизонтальная прокрутка">
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/ce146b46_file_Aeria_1715929356563_8807.jpg.jpg" alt="NICOLE — многофункциональное пространство в центре Москвы" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>NICOLE</h3><p>Москва · 2022 · 89 369 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/3cd2d812_file_75633_1719925940748_1426.jpg.jpg" alt="LEVEL — жилой комплекс на первой береговой линии Москвы-реки" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>LEVEL</h3><p>Москва · 2020 · 94 705 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/f7fd50cb_file_2.jpg_1714741092119_8281.jpg.jpg" alt="Dubinin’Sky — высотный бизнес-центр в ЦАО" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>Dubinin’Sky</h3><p>Москва · 2021 · 110 585 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/4719c8a7_file_4__1.jpg)_1722857855979_1957.png" alt="Жилой комплекс HEADLINER — небоскрёбы у Москвы-Сити" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>Жилой комплекс HEADLINER</h3><p>Москва · 2020 · 325 505 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/d718f859_file_1.jpg_1718112197469_6188.jpg.jpg" alt="Бизнес-центр Sezar Group — офисный комплекс в Силикатном проезде" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>Бизнес-центр Sezar Group</h3><p>Москва · 2023 · 15 862 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/ce664e72_file_3__1.jpg)_1717743703053_9468.jpg" alt="Жилой комплекс РЕКА-3 — клубный дом в районе Раменки" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>Жилой комплекс РЕКА-3</h3><p>Москва · 2022 · 45 000 м²</p></div>
+      </a>
+      <a class="reel-card" href="#">
+        <figure><img src="../assets/img/4a2536e8_file_34539_1717421822870_4964.jpg.jpg" alt="Многофункциональный комплекс Eniteo — 42-этажные башни на общем стилобате" width="840" height="600" loading="lazy"></figure>
+        <div class="reel-txt"><h3>МФК Eniteo</h3><p>Москва · 2020 · 72 957 м²</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline" aria-hidden="true">
+
+<!-- ============ AWARDS ============ -->
+<section class="awards" id="awards" aria-label="Признание и награды">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <h2 class="sec-title">Признание</h2>
+      <p class="sec-num">Награды</p>
+    </div>
+    <ul class="awards-list" data-reveal>
+      <li class="award-row"><span class="yr">2026</span><span class="meta"><b class="ttl">Urban Design &amp; Architecture Design Awards 2026</b><span class="nom">Архитектура объектов культуры</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Международный конкурс на Terraviva Competitions</b><span class="nom">Bodegas Vinival</span></span><i class="prz prz--alt">Финалист</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Лидеры проектирования</b><span class="nom">BIM-компания года</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Лидеры проектирования</b><span class="nom">BIM-проект года</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">100+ Awards</b><span class="nom">Лучшая BIM-модель здания</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Топ-50 лучших проектировщиков жилья в России</b><span class="nom">Генеральное проектирование</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Real Estate Property Awards</b><span class="nom">Архитектурное и проектное бюро</span></span><i class="prz prz--alt">Финалист</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Директор года по проектированию в строительном комплексе Российской Федерации</b><span class="nom">Проектирование торговых центров и коммерческих объектов</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">АРХ МОСКВА 2025</b><span class="nom">Архитектурные стенды</span></span><i class="prz prz--alt">Диплом</i></li>
+      <li class="award-row"><span class="yr">2025</span><span class="meta"><b class="ttl">Urban Design &amp; Architecture Design Awards 2025</b><span class="nom">Жилая архитектура (концепция)</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2024</span><span class="meta"><b class="ttl">100+ Awards</b><span class="nom">Лучшая BIM-модель здания</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2024</span><span class="meta"><b class="ttl">Национальная Премия «Лидеры проектирования 2024»</b><span class="nom">Проект года в категории ЖК и КРТ</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2024</span><span class="meta"><b class="ttl">Международный фестиваль «Зодчество»</b><span class="nom">Лучшие творческие мастерские и стенд</span></span><i class="prz prz--alt">Диплом</i></li>
+      <li class="award-row"><span class="yr">2024</span><span class="meta"><b class="ttl">Архитектурная премия Москвы</b><span class="nom">Лучшее архитектурно-градостроительное решение объекта дорожно-транспортной инфраструктуры</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2024</span><span class="meta"><b class="ttl">Real Estate Property Awards</b><span class="nom">Архитектурные концепции</span></span><i class="prz prz--alt">Финалист</i></li>
+      <li class="award-row"><span class="yr">2023</span><span class="meta"><b class="ttl">100 лучших объектов России</b><span class="nom">Лучшие конструктивные решения</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2023</span><span class="meta"><b class="ttl">Рекорды рынка недвижимости</b><span class="nom">Клубный дом №1 города Москвы</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">Лидер стройкомплекса России</b><span class="nom">Лучшая проектно-изыскательская организация</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">Рейтинг лучших работодателей России</b><span class="nom">Строительство и недвижимость</span></span><i class="prz prz--alt">TOP 10</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">European Property Awards</b><span class="nom">Лучшая архитектура, Лучшее ландшафтное благоустройство, Лучший интерьер</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">Стекло в архитектуре</b><span class="nom">Офисно-деловое здание</span></span><i class="prz prz--alt">Серебряный диплом</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">Премия Москомархитектуры</b><span class="nom">Лучшее АГР объекта транспортной инфраструктуры</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">REPA Премия</b><span class="nom">Репутация компании. Проектное бюро</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2022</span><span class="meta"><b class="ttl">Премия Urban Awards</b><span class="nom">Лучший жилой небоскрёб премиум-класса Москвы</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2021</span><span class="meta"><b class="ttl">Премия Urban Awards</b><span class="nom">Лучший комплекс апартаментов премиум-класса Москвы</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2021</span><span class="meta"><b class="ttl">World Travel Awards</b><span class="nom">Лучшая достопримечательность Европы в сфере винного туризма</span></span><i class="prz prz--win">Победитель</i></li>
+      <li class="award-row"><span class="yr">2019</span><span class="meta"><b class="ttl">World Architecture Festival (WAF)</b><span class="nom">Residential, Re-Use, Masterplanning</span></span><i class="prz prz--win">Победитель</i></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about" aria-label="О компании">
+  <div class="about-media" data-parallax>
+    <img src="../assets/img/95c870db_file_UNO1._1705674997884_7064.jpg.jpg"
+         alt="Станция метро «Народное ополчение» — атмосфера подземного строительства" width="1920" height="1080" loading="lazy">
+  </div>
+  <div class="wrap">
+    <div class="about-in">
+      <div class="sec-head" data-reveal>
+        <h2 class="sec-title">Начинали<br>под землёй</h2>
+        <p class="sec-num">С 2005 года</p>
+      </div>
+      <p data-reveal>MARKS GROUP — <strong>генеральный проектировщик полного цикла</strong>, работающий с 2005 года. Компания начиналась с уникальных задач в области геотехники и подземного строительства — среди ранних работ подземные конструкции Большого театра и Алабяно-Балтийский тоннель.</p>
+      <p data-reveal>С 2014 года — стремительный рост в группу компаний: архитектура, градостроительство, конструктив, инженерия, геотехника, наука и цифровые технологии. Сегодня — <strong>1300+ специалистов и 200+ проектов</strong> по всей России.</p>
+      <p class="about-line" data-reveal>
+        <span><b>Основана</b> — 2005</span>
+        <span><b>Генеральный директор</b> — Юрий Готман, с 2015</span>
+        <span><b>Офисы</b> — Москва · СПб · Воронеж · Оренбург · Челябинск · Ташкент</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline" aria-hidden="true">
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" aria-label="Обсудить проект">
+  <div class="wrap contact-grid">
+    <div data-reveal>
+      <p class="sec-num">Контакт</p>
+      <h2 class="sec-title" style="margin-top:.6rem">Обсудить<br>проект</h2>
+      <p class="contact-lead" style="margin-top:1.4rem">Расскажите о задаче — от концепции до ввода в эксплуатацию. Ответим в течение рабочего дня.</p>
+      <div class="contact-details">
+        <div><span>Почта</span><a href="mailto:mail@marksgroup.ru">mail@marksgroup.ru</a></div>
+        <div><span>Телефон</span><a href="tel:+74951201226">+7 (495) 120-12-26</a></div>
+        <div><span>Адрес</span>Москва, 3-я ул. Ямского Поля, д. 20, с. 1, офис 704</div>
+        <div><span>Соцсети</span><a href="https://vk.com/marksgroup" rel="noopener">VK</a> · <a href="https://t.me/marksgroup" rel="noopener">Telegram</a> · <a href="https://youtube.com/@marksgroup" rel="noopener">YouTube</a></div>
+      </div>
+    </div>
+    <form action="/footerForm" method="post" data-reveal novalidate>
+      <div class="field">
+        <label for="f-name">Ваше имя</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-phone">Телефон</label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+      </div>
+      <div class="field">
+        <label for="f-msg">Коротко о проекте</label>
+        <textarea id="f-msg" name="message" required></textarea>
+      </div>
+      <label class="consent">
+        <input type="checkbox" name="consent" required>
+        <span>Я даю согласие на обработку персональных данных</span>
+      </label>
+      <button class="submit-btn" type="submit">Отправить</button>
+      <p class="form-ok" role="status">Заявка отправлена — мы свяжемся с вами в течение рабочего дня.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top">MARKS<span>&nbsp;</span>GROUP</a>
+        <p>Генеральное проектирование — от концепции до ввода объекта в эксплуатацию.</p>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="./">Главная</a></li>
+          <li><a href="#">Проекты</a></li>
+          <li><a href="#">О компании</a></li>
+          <li><a href="#">Контакты</a></li>
+          <li><a href="#">HR портал</a></li>
+          <li><a href="https://marksgroup.org" lang="en">EN — marksgroup.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="mailto:mail@marksgroup.ru">mail@marksgroup.ru</a></li>
+          <li><a href="tel:+74951201226">+7 (495) 120-12-26</a></li>
+          <li>Москва, 3-я ул. Ямского Поля,<br>д. 20, с. 1, офис 704</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Офисы</h4>
+        <ul>
+          <li>Москва</li>
+          <li>Санкт-Петербург</li>
+          <li>Воронеж · Оренбург</li>
+          <li>Челябинск · Ташкент</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© MARKS GROUP, 2005—2026</p>
+      <p><a href="https://vk.com/marksgroup" rel="noopener">VK</a> · <a href="https://t.me/marksgroup" rel="noopener">Telegram</a> · <a href="https://youtube.com/@marksgroup" rel="noopener">YouTube</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
+  if(!reduced) root.classList.add("anim");
+
+  /* ---- header on scroll ---- */
+  var header = document.querySelector(".site-header");
+  function onHead(){ header.classList.toggle("scrolled", window.scrollY > 40); }
+  window.addEventListener("scroll", onHead, {passive:true}); onHead();
+
+  /* ---- mobile menu ---- */
+  var burger = document.querySelector(".burger"),
+      menu = document.getElementById("mmenu");
+  burger.addEventListener("click", function(){
+    var open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  menu.addEventListener("click", function(e){
+    if(e.target.tagName === "A"){
+      menu.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+      document.body.style.overflow = "";
+    }
+  });
+
+  /* ---- scroll reveals ---- */
+  if(!reduced && "IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, {threshold:.18, rootMargin:"0px 0px -6% 0px"});
+    document.querySelectorAll("[data-reveal],[data-band]").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll("[data-reveal],[data-band]").forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ---- counters ---- */
+  function animateCount(el){
+    var target = +el.getAttribute("data-count"), t0 = null, dur = 1400;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      p = 1 - Math.pow(1 - p, 3); /* ease-out cubic */
+      el.textContent = Math.round(target * p).toLocaleString("ru-RU").replace(/ /g," ");
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(!reduced && "IntersectionObserver" in window){
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ animateCount(en.target); cio.unobserve(en.target); }
+      });
+    }, {threshold:.6});
+    document.querySelectorAll("[data-count]").forEach(function(el){ el.textContent = "0"; cio.observe(el); });
+  }
+
+  /* ---- parallax (transform-only, rAF-throttled) ---- */
+  if(!reduced){
+    var layers = Array.prototype.slice.call(document.querySelectorAll("[data-parallax] img"));
+    var ticking = false;
+    function parallax(){
+      ticking = false;
+      var vh = window.innerHeight;
+      layers.forEach(function(img){
+        var r = img.parentElement.getBoundingClientRect();
+        if(r.bottom < -80 || r.top > vh + 80) return;
+        /* прогресс -1..1 относительно центра вьюпорта */
+        var p = (r.top + r.height/2 - vh/2) / (vh/2 + r.height/2);
+        p = Math.max(-1, Math.min(1, p));
+        img.style.transform = "translate3d(0," + (p * -8).toFixed(2) + "%,0)";
+      });
+    }
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(parallax); }
+    }
+    window.addEventListener("scroll", onScroll, {passive:true});
+    window.addEventListener("resize", onScroll, {passive:true});
+    parallax();
+  }
+
+  /* ---- form (рабочий вид) ---- */
+  var form = document.querySelector("form");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+    var btn = form.querySelector(".submit-btn");
+    btn.disabled = true;
+    btn.textContent = "Отправлено";
+    form.querySelector(".form-ok").classList.add("show");
+  });
+})();
+</script>
+<script>/*awards-collapse2*/(function(){try{var P=/\u041f\u043e\u0431\u0435\u0434\u0438\u0442\u0435\u043b|\u0424\u0438\u043d\u0430\u043b\u0438\u0441\u0442|\u0414\u0438\u043f\u043b\u043e\u043c|TOP\s?10|\u0422\u043e\u043f-?\d/;var best=null,bn=0;[].forEach.call(document.querySelectorAll("ul,ol,tbody,div,section,dl"),function(e){var k=e.children,n=0;for(var i=0;i<k.length;i++){var t=k[i].textContent||"";if(P.test(t)&&t.length<240)n++;}if(n>bn){bn=n;best=e;}});if(!best||bn<10)return;var rows=[].slice.call(best.children).filter(function(c){var t=c.textContent||"";return P.test(t)&&t.length<240;});var N=6,hid=rows.slice(N);hid.forEach(function(r){r.setAttribute("data-awh","1");r.style.display="none";});var b=document.createElement("button");b.type="button";b.className="awards-more";b.setAttribute("aria-expanded","false");var lbl="\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0441\u0435 \u043d\u0430\u0433\u0440\u0430\u0434\u044b \u2014 "+rows.length;b.textContent=lbl;b.style.cssText="display:inline-block;margin:1.6rem 0 .5rem;font:600 .72rem/1 inherit;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.7rem;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;border-radius:3px;opacity:.9";var open=false;b.onclick=function(){open=!open;hid.forEach(function(r){r.style.display=open?"":"none";});b.textContent=open?"\u0421\u0432\u0435\u0440\u043d\u0443\u0442\u044c \u043d\u0430\u0433\u0440\u0430\u0434\u044b":lbl;b.setAttribute("aria-expanded",open?"true":"false");};var w=document.createElement("div");w.style.cssText="text-align:center;width:100%";w.appendChild(b);if(best.parentElement)best.parentElement.insertBefore(w,best.nextSibling);else best.appendChild(w);}catch(e){}})();</script>
+<script>/*mg-hero-slideshow*/(function(){var box=document.querySelector('.mg-slides');if(!box)return;var imgs=[].slice.call(box.querySelectorAll('img'));if(imgs.length<2)return;var cap=document.querySelector('.hero-credit,.hero-project,[data-hero-cap]');var i=0;function setCap(el){var c=el.getAttribute('data-cap');if(cap&&c)cap.innerHTML=c;}imgs.forEach(function(el,n){el.classList.toggle('mg-on',n===0);});setCap(imgs[0]);if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;var t=null;function tick(){imgs[i].classList.remove('mg-on');i=(i+1)%imgs.length;imgs[i].classList.add('mg-on');setCap(imgs[i]);}function start(){stop();t=setInterval(tick,5200);}function stop(){if(t){clearInterval(t);t=null;}}start();document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});})();</script>
+</body>
+</html>

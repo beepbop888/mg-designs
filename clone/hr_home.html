@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F6F6F6">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#F6F6F6">
+  <meta name="description" content="Генеральное проектирование">
+
+  <meta property="og:title" content="MARKS GROUP">
+  <meta property="og:description" content="MARKS GROUP — Генеральное проектирование от концепции до ввода объекта в эксплуатацию">
+  <meta property="og:image" content="icon/mobil-icon.png">
+  <meta property="og:url" content="https://marksgroup.ru/">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon/mobil-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon/desktop-icon.png">
+  <link rel="icon" type="image/svg+xml" sizes="16x16" href="icon/16.svg">
+  <link rel="icon" type="image/svg+xml" sizes="32x32" href="icon/32.svg">
+  <link rel="icon" type="image/svg+xml" sizes="120x120" href="icon/120.svg">
+  <link rel="apple-touch-icon" sizes="120x120" href="icon/120.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon/mobil-icon.png">
+  
+  <meta name="msapplication-TileColor" content="#1D2E43">
+  <meta name="msapplication-TileImage" content="icon/120.svg">
+
+  <title>MARKS GROUP</title>
+  
+  <link rel="stylesheet" crossorigin="" href="assets/index-bAQDcE4w.css">
+<link rel="stylesheet" crossorigin="" href="assets/buttonLink1-N3Uyuhel.css"><link rel="stylesheet" crossorigin="" href="assets/navigation-ljInFs9k.css"><link rel="stylesheet" crossorigin="" href="assets/slick-theme-2d6kTBOk.css"><link rel="stylesheet" crossorigin="" href="assets/MarksSelect-IkbdOCBJ.css"><link rel="stylesheet" crossorigin="" href="assets/ApplicationForm-ChJUuXw0.css"><link rel="stylesheet" crossorigin="" href="assets/LoadingCircle-CrhBVcde.css"><link rel="stylesheet" crossorigin="" href="assets/VacanciesMain3-BI4YUOJY.css"><link rel="stylesheet" crossorigin="" href="assets/swiper-vL0Q9Dr-.css"><link rel="stylesheet" crossorigin="" href="assets/Footer-ChgeV9bZ.css"><link rel="stylesheet" crossorigin="" href="assets/CustomCursor-BsnsbN7c.css"><style data-emotion="css" data-s=""></style><style>/*clone-ui*//* clone-ui: consolidated interaction layer (injected on every page) */
+/* swipers -> native scroll */
+.swiper .swiper-wrapper{transform:none!important;transition:none!important;
+  overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;cursor:grab}
+.swiper .swiper-wrapper::-webkit-scrollbar{display:none}
+.swiper .swiper-wrapper.mg-dragging{cursor:grabbing}
+.swiper .swiper-slide{flex-shrink:0;max-width:100%}
+/* marquee geometry after prune (2x unique set) */
+[class*="SliderHeader__marquee"]{width:max-content!important}
+/* accordion: closed description stays visible at translate(0) — matches real */
+.BlockHeaderMain_toggle_blockHeader__iuUPd svg{transition:transform .4s cubic-bezier(.04,.68,.29,1.28)}
+/* nav dropdowns */
+.mg-dd{position:absolute;top:100%;left:0;min-width:230px;background:#F6F6F6;
+  box-shadow:0 8px 24px rgba(42,87,130,.16);padding:.5rem 0;z-index:9990;display:none}
+.mg-dd.open{display:block}
+.mg-dd a{display:block;padding:.6rem 1.2rem;font-family:var(--font-raleway,Raleway,sans-serif);
+  color:#1D2E43;white-space:nowrap;font-size:.9rem}
+.mg-dd a:hover{background:#EBECEE}
+/* cookie banner fade */
+.CookieConsent{transition:opacity .3s ease,transform .3s ease}
+/* page cross-fade on static navigation (Chromium) */
+@view-transition{navigation:auto}
+/* form success state */
+.mg-form-ok{font-family:var(--font-raleway,Raleway,sans-serif);color:#1D2E43;
+  font-size:1.25rem;line-height:1.5;padding:2rem 0}
+
+[class*="SliderHeader__marquee"] img[src*="14."]{width:170px;height:40px}
+[class*="SliderHeader__marquee"] img[src*="15."]{width:160px;height:40px}
+/* logo dot (real: 18px navy dot left of wordmark) */
+a[class*="logo-block"]{display:flex;align-items:center;gap:10px}
+[class*="logo-circle"]{width:18px;height:18px;border-radius:50%;background:#1D2E43;flex:none;order:-1}
+@media (max-width:768px){[class*="logo-circle"]{width:16px;height:16px}}
+/* cursor bubble label: real is 16px #FFF */
+.cursor span{font-size:16px!important;color:#fff!important}
+/* swiper conversion for ALL wrappers (incl. Ещё по теме without .swiper parent) */
+.swiper-wrapper{transform:none!important;transition:none!important;
+  overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;cursor:grab}
+.swiper-wrapper::-webkit-scrollbar{display:none}
+.swiper-wrapper img, .swiper-wrapper a{-webkit-user-drag:none;user-drag:none}
+/* full-width in-flow nav dropdown (real presentation) */
+.mg-ddx{overflow:hidden;max-height:0;transition:max-height .3s ease;background:#F6F6F6;width:100%}
+.mg-ddx.open{max-height:260px}
+.mg-ddx ul{padding:12px 0 32px;margin:0;list-style:none;display:flex;flex-direction:column;gap:20px}
+.mg-ddx a{display:block;text-decoration:none}
+.mg-ddx .t{font-size:16px;color:#000;font-family:var(--font-raleway,Raleway,sans-serif)}
+.mg-ddx .d{font-size:14px;color:#959DA6;margin-top:4px;max-width:560px;font-family:var(--font-raleway,Raleway,sans-serif)}
+/* cookie banner mobile: fixed + stacked (real) */
+@media (max-width:768px){
+  .CookieConsent{position:fixed!important;left:0!important;right:0!important;bottom:0!important;
+    flex-direction:column!important;align-items:stretch!important;padding:16px 0 0!important}
+  #rcc-confirm-button{width:100%!important;margin:12px 0 0!important}
+}
+
+/* project pages: pre-wrap &nbsp; description paragraphs overflow the viewport on mobile → horizontal scroll */
+@media screen and (max-width:700px){ .app-shell, .app-shell__content{ overflow-x:hidden } }
+/* Компетенции sub-panel: real desktop layout is 2 columns (a mobile column rule leaked out of its @media
+   during CSS extraction and flattened it to one column). Restore the 2-col grid on desktop only. */
+@media (min-width:769px){
+  .mg-panel [class*="_blocksContainer_"]{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important}
+  .mg-panel [class*="_block_content_name_wrapper_"]{width:calc(50% - 1.88rem)!important}
+}
+/* «Смотреть» bubble zones: project-card sliders (real hides cursor there) */
+[class*="slider_card_container"] .swiper-slide, .swiper-slide[class*="swiper_container_item"]{cursor:none}
+/* project-card grids/lists (bottom of project + listing pages): any project-link card wrapping an image */
+a[href*="project_"]:has(img), a[href*="project?"]:has(img),
+[class*="_list_"] a:has(img), [class*="grid"] a[href*="project"]:has(img){cursor:none}
+a[href*="project_"]:has(img) *, [class*="_list_"] a:has(img) *{cursor:none}
+</style></head>
+
+<body>
+  
+  <div id="root"><div class="app-shell"><div class="app-shell__content app-shell__content--visible"><nav class="_navbar_pp1il_6"><div class="_navbar-top_pp1il_22"><a data-is-sidebar="false" class="_logo-block_1ypky_1" href="hr_home.html"><div class="_logo-circle_1ypky_33 _logo-circle-animate_1ypky_57"></div><img class="_logo-image_1ypky_40 _logo-image-animate_1ypky_64" src="assets/logo-duIKjQh7.svg" alt="логотип компании MarksGroup" loading="lazy"><img class="_logo-hr_1ypky_45 _logo-hr-animate_1ypky_53" src="data:image/svg+xml,%3csvg%20width='32'%20height='16'%20viewBox='0%200%2032%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M0%200H1.78551V6.91146H11.1351V0H12.9206V16H11.1351V8.58429H1.78551V16H0V0Z'%20fill='%2375BBFD'/%3e%3cpath%20d='M19.8828%200H27.2034C30.6852%200%2032%200.792396%2032%203.65383V6.07504C32%207.74787%2031.306%208.69235%2029.902%208.93647C31.5089%209.30865%2032%2010.2131%2032%2012.1501V16H30.1252V12.6983C30.1252%2010.3652%2029.5246%209.77289%2027.4266%209.77289H21.6683V16H19.8828V0ZM21.6683%201.69285V8.09605H26.8463C29.0782%208.09605%2030.1252%207.85593%2030.1252%205.83092V3.96198C30.1252%201.91696%2029.1431%201.69685%2026.8463%201.69685H21.6683V1.69285Z'%20fill='%2375BBFD'/%3e%3c/svg%3e" alt="дополнительный логотип для MarksGroup HR portal"></a><ul class="_navbar-list_pp1il_52"><li class="_navbar-item_pp1il_61"><a aria-current="page" class="_navbar-item-active_pp1il_80" href="hr_home.html">Главная</a></li><li class="_navbar-item_pp1il_61"><a href="hr_home.html">Работа у нас</a></li><li class="_navbar-item_pp1il_61"><a href="hr_home.html">Стажировки</a></li></ul><div class="_navbar-cta_pp1il_58"><button class="_navbar-link_pp1il_29 _navbar-link--cta-secondary_pp1il_148 _navbar-link--active_pp1il_129" type="button" style="opacity: 1;">Хочу работать у вас!</button></div><button type="button" aria-label="Открыть меню" aria-expanded="false" class="_navbar-burger_pp1il_231"><span></span><span></span><span></span></button></div><div class="_navbar-sidebar_pp1il_273" aria-hidden="true" style="translate: none; rotate: none; scale: none; opacity: 0; visibility: hidden;"><div class="_navbar-sidebar-content_pp1il_291"><a data-is-sidebar="true" class="_logo-block_1ypky_1" href="hr_home.html"><div class="_logo-circle_1ypky_33 _logo-circle-animate_1ypky_57"></div><img class="_logo-image_1ypky_40 _logo-image-animate_1ypky_64" src="assets/logo-duIKjQh7.svg" alt="логотип компании MarksGroup" loading="lazy"><img class="_logo-hr_1ypky_45 _logo-hr-animate_1ypky_53 undefined" src="data:image/svg+xml,%3csvg%20width='32'%20height='16'%20viewBox='0%200%2032%2016'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M0%200H1.78551V6.91146H11.1351V0H12.9206V16H11.1351V8.58429H1.78551V16H0V0Z'%20fill='%2375BBFD'/%3e%3cpath%20d='M19.8828%200H27.2034C30.6852%200%2032%200.792396%2032%203.65383V6.07504C32%207.74787%2031.306%208.69235%2029.902%208.93647C31.5089%209.30865%2032%2010.2131%2032%2012.1501V16H30.1252V12.6983C30.1252%2010.3652%2029.5246%209.77289%2027.4266%209.77289H21.6683V16H19.8828V0ZM21.6683%201.69285V8.09605H26.8463C29.0782%208.09605%2030.1252%207.85593%2030.1252%205.83092V3.96198C30.1252%201.91696%2029.1431%201.69685%2026.8463%201.69685H21.6683V1.69285Z'%20fill='%2375BBFD'/%3e%3c/svg%3e" alt="дополнительный логотип для MarksGroup HR portal"></a><nav class="_navbar-sidebar-nav_pp1il_298"><ul class="_navbar-sidebar-list_pp1il_303 _navbar-sidebar-list--with-logo_pp1il_314"><li><a aria-current="page" class="_navbar-sidebar-link_pp1il_363 _navbar-sidebar-link--active_pp1il_382" href="hr_home.html">Главная</a></li><li><a class="_navbar-sidebar-link_pp1il_363" href="hr_home.html">Работа у нас</a></li><li><a class="_navbar-sidebar-link_pp1il_363" href="hr_home.html">Стажировки</a></li></ul></nav><div class="_navbar-sidebar-cta_pp1il_424"><a class="_navbar-sidebar-cta--btn_pp1il_444" href="hr_home.html#form">Хочу работать у вас!</a><ul class="_navbar-sidebar-cta--contact-list_pp1il_428"><li class="_navbar-sidebar-cta--contact-item_pp1il_436"><a href="mailto:hr@marksgroup.ru">hr@marksgroup.ru</a></li><li class="_navbar-sidebar-cta--contact-item_pp1il_436"><a href="tel:+74951201226">+7 (495) 120-12-26</a></li></ul></div></div></div></nav><div class="page-little-fade"><main style="overflow-x: clip;"><section><div class="_Intro__intro_1rxoo_2"><div class="_Intro__text_1rxoo_39"><span class="_Intro__pretitle_1rxoo_51">Присоединяйтесь к&nbsp;MARKS&nbsp;GROUP</span><h1 class="_Intro__title_1rxoo_57">Мы&nbsp;в&nbsp;поиске талантливых специалистов</h1><a class="_ButtonLink_91wfd_2 _Intro__button_1rxoo_61" href="hr_home.html">Смотреть вакансии</a></div><div class="_Intro__starsWrapper_1rxoo_14"><div id="stars-canvas" style="position: relative; top: 0px; left: 0px; height: 100vh; width: 100vw;"></div></div></div><div class="_Intro__video_1rxoo_64"><video muted playsinline="" autoplay="" loop="" style="display: block; opacity: 1; height: 100vh; width: 100%; transition: opacity 1s, height 1s, width 1s;"><source src="s3/video__main_company_full.mp4" type="video/mp4"></video></div></section><section class="_TextCenter_dkhkq_2"><div><div class="_TextCenter__star_dkhkq_13 _TextCenter__star_1_dkhkq_19" style="background-image: url(assets/star-1-D6-FVGEZ.png); transform: rotate(-52.0179deg);"></div><div class="_TextCenter__star_dkhkq_13 _TextCenter__star_2_dkhkq_25" style="background-image: url(assets/star-2-DpI2flPY.png); transform: rotate(52.0179deg);"></div><div class="_TextCenter__star_dkhkq_13 _TextCenter__star_3_dkhkq_31" style="background-image: url(assets/star-3-CXVViDie.png); transform: rotate(-52.0179deg);"></div><div class="_TextCenter__star_dkhkq_13 _TextCenter__star_4_dkhkq_37" style="background-image: url(assets/star-4-DH7g-gm-.png); transform: rotate(52.0179deg);"></div></div><div class="_TextCenter__text_dkhkq_43">Мы&nbsp;верим, <span>что будущее строится сегодня,</span> и&nbsp;каждый наш проект&nbsp;<br>— это&nbsp;<span>возможность</span> проявляться, <br>а&nbsp;также <span>вдохновлять</span> и&nbsp;<span>преображать</span> окружающий мир</div></section><section class="_RatingSwiper_1hft6_2"><div class="_RatingSwiper__header_1hft6_7"><h2><span>Ведущая компания </span><span>в&nbsp;сфере проектирования</span></h2></div><div class="_RatingSwiper__body_1hft6_29"><div class="_ArrowsSwiper_1eov6_2"><button class="swiper-button-disabled" disabled=""></button><button class=""></button></div><div class="swiper swiper-initialized swiper-horizontal swiper-backface-hidden"><div class="swiper-wrapper _RatingSwiper__wrapper_1hft6_35" style="transform: translate3d(0px, 0px, 0px);"><div class="swiper-slide swiper-slide-active _RatingSwiper__slide_1hft6_39" style="width: 1459px; margin-right: 30px;"><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Октябрь 9, 2022</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель Премия Urban Awards Лучший жилой небоскрёб премиум-класса Москвы</h3><div class="_RatingSwiper__picture_1hft6_76"><img src="s3/slideCard__prime-park.png" alt=""></div></div><div class="_RatingSwiper__rows_1hft6_71"><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Октябрь 31, 2022</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель REPA Премия Репутация компании. Проектное бюро</h3></div><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Июль 13, 2022</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель Премия Москомархитектуры Лучшее АГР объекта транспортной инфраструктуры</h3></div></div></div><div class="swiper-slide swiper-slide-next _RatingSwiper__slide_1hft6_39" style="width: 1459px; margin-right: 30px;"><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Октябрь 22, 2021</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель World Travel Awards Лучшая достопримечательность Европы в сфере винного туризма</h3><div class="_RatingSwiper__picture_1hft6_76"><img src="s3/slideCard__wine-park.jpg" alt=""></div></div><div class="_RatingSwiper__rows_1hft6_71"><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Май 12, 2021</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель Премия Urban Awards Лучший комплекс апартаментов премиум-класса Москвы
+</h3></div><div class="_RatingSwiper__row_1hft6_61"><span class="_RatingSwiper__date_1hft6_46">Август 8, 2019</span><h3 class="_RatingSwiper__title_1hft6_52">Победитель World Architecture Festival (WAF) Residential, Re-Use, Masterplanning
+</h3></div></div></div></div></div></div></section><section class="_CountRows_qrihh_2"><div><div class="_CountRows__star_qrihh_9 _CountRows__star_1_qrihh_14" style="background-image: url(assets/star-1-D6-FVGEZ.png); transform: rotate(-151.777deg);"></div><div class="_CountRows__star_qrihh_9 _CountRows__star_2_qrihh_20" style="background-image: url(assets/star-2-DpI2flPY.png); transform: rotate(151.777deg);"></div><div class="_CountRows__star_qrihh_9 _CountRows__star_3_qrihh_23" style="background-image: url(assets/star-3-CXVViDie.png); transform: rotate(-151.777deg);"></div><div class="_CountRows__star_qrihh_9 _CountRows__star_4_qrihh_29" style="background-image: url(assets/star-4-DH7g-gm-.png); transform: rotate(151.777deg);"></div></div><div class="_CountRows__wrapper_qrihh_35"><h2 class="_CountRows__header_qrihh_42">Быть с&nbsp;MARKS —&nbsp;это</h2><ul class="_CountRows__list_qrihh_47"><li><div class="_CountRows__line_qrihh_50"></div><div class="_CountRows__count_qrihh_119"></div><div class="_CountRows__text_qrihh_65">Делать людей счастливыми, создавая смелые проекты лучшей командой</div></li><li><div class="_CountRows__line_qrihh_50"></div><div class="_CountRows__count_qrihh_119"></div><div class="_CountRows__text_qrihh_65">Безусловно любить свою профессию</div></li><li><div class="_CountRows__line_qrihh_50"></div><div class="_CountRows__count_qrihh_119"></div><div class="_CountRows__text_qrihh_65">Применять научный подход в&nbsp;практике</div></li><li><div class="_CountRows__line_qrihh_50"></div><div class="_CountRows__count_qrihh_119"></div><div class="_CountRows__text_qrihh_65">Доверять и&nbsp;быть открытыми друг другу</div></li></ul></div></section><section class="_DirectionsGrid_10vrn_2"><div class="_DirectionsGrid__item_10vrn_25 _DirectionsGrid__item_header_10vrn_78"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">Выбери свое направление!</h2><p>MARKS GROUP&nbsp;— многопрофильная компания,<br> мы&nbsp;приглашаем специалистов самых разных<br>сфер&nbsp;деятельности</p></div></div><div class="_DirectionsGrid__item_10vrn_25"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">Архитектура</h2><p>Разработка уникальной авторской архитектуры, проектная и&nbsp;рабочая документация</p></div><img src="assets/directions-1-BIN-tyGu.svg"></div><div class="_DirectionsGrid__item_10vrn_25"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">Конструктив</h2><p>Разработка нестандартных <br>конструктивных решений</p></div><img src="assets/directions-2-BwQYB40X.svg"></div><div class="_DirectionsGrid__item_10vrn_25 _DirectionsGrid__item_it_10vrn_94"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">IT</h2><p>Цифровизация процессов строительства,<br> проектирования, девелопмента</p><p>Разработка ПО&nbsp;и&nbsp;решений для автоматизации<br> процессов информационного моделирования</p><p>Разработка&nbsp;VR и&nbsp;дополненной реальности</p></div><img src="assets/directions-3-D6L17306.svg"></div><div class="_DirectionsGrid__item_10vrn_25"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">Наука</h2><p>Научные исследования в&nbsp;проектировании и&nbsp;строительстве</p></div><img src="assets/directions-4-C93BGO0m.svg"></div><div class="_DirectionsGrid__item_10vrn_25"><div class="_DirectionsGrid__text_10vrn_8"><h2 class="_DirectionsGrid__subtitle_10vrn_18">Инженерия</h2><p>Разработка внутренних <br>и&nbsp;наружных инженерных систем</p></div><img src="assets/directions-5-D2qYYKqd.svg"></div></section><section class="_VacanciesMap_k7imp_2"><div class="_VacanciesMap__text_k7imp_10"><h2>Вакансии<br>по&nbsp;всему миру!</h2><p>5&nbsp;офисов в&nbsp;России и&nbsp;один в&nbsp;Узбекистане. Если ты&nbsp;крутой специалист, мы&nbsp;готовы помочь с&nbsp;переездом и&nbsp;поиском жилья</p></div><div class="_VacanciesMap__map_k7imp_30"><div class="_VacanciesMap__city_k7imp_69 _VacanciesMap__city_spb_k7imp_100 _VacanciesMap__city_active_k7imp_121"><div class="_VacanciesMap__box_k7imp_88"><span>Санкт-Петербург</span><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_m_k7imp_62"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_s_k7imp_55"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_xs_k7imp_47"></div></div></div><div class="_VacanciesMap__city_k7imp_69 _VacanciesMap__city_msk_k7imp_84 "><div class="_VacanciesMap__box_k7imp_88"><span>Москва</span><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_m_k7imp_62"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_s_k7imp_55"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_xs_k7imp_47"></div></div></div><div class="_VacanciesMap__city_k7imp_69 _VacanciesMap__city_vzh_k7imp_96 "><div class="_VacanciesMap__box_k7imp_88"><span>Воронеж</span><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_m_k7imp_62"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_s_k7imp_55"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_xs_k7imp_47"></div></div></div><div class="_VacanciesMap__city_k7imp_69 _VacanciesMap__city_obg_k7imp_104 "><div class="_VacanciesMap__box_k7imp_88"><span>Оренбург</span><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_m_k7imp_62"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_s_k7imp_55"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_xs_k7imp_47"></div></div></div><div class="_VacanciesMap__city_k7imp_69 _VacanciesMap__city_chbk_k7imp_108 "><div class="_VacanciesMap__box_k7imp_88"><span>Челябинск</span><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_m_k7imp_62"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_s_k7imp_55"></div><div class="_VacanciesMap__circle_k7imp_40 _VacanciesMap__circle_xs_k7imp_47"></div></div></div></div></section><section class="_BenefitsGrid_4qdty_2"><h2 class="_BenefitsGrid__title_4qdty_36">Преимущества работы с нами</h2><div><div class="_BenefitsGrid__star_4qdty_7 _BenefitsGrid__star_1_4qdty_12" style="background-image: url(assets/star-1-D6-FVGEZ.png); transform: rotate(-437.155deg);"></div><div class="_BenefitsGrid__star_4qdty_7 _BenefitsGrid__star_2_4qdty_18" style="background-image: url(assets/star-2-DpI2flPY.png); transform: rotate(437.155deg);"></div><div class="_BenefitsGrid__star_4qdty_7 _BenefitsGrid__star_3_4qdty_24" style="background-image: url(assets/star-3-CXVViDie.png); transform: rotate(-437.155deg);"></div><div class="_BenefitsGrid__star_4qdty_7 _BenefitsGrid__star_4_4qdty_30" style="background-image: url(assets/star-4-DH7g-gm-.png); transform: rotate(437.155deg);"></div></div><ul class="_BenefitsGrid__items_4qdty_43"><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-1-uEBZi8Dy.svg" alt=""></div><div><h3>Мы за развитие команды</h3><div>Регулярные внутренние и&nbsp;внешние обучения, корпоративная скидка на&nbsp;Skyeng, внутреннее обучение английскому языку</div></div></li><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-2-DXazLPyP.svg" alt="" loading="lazy" decoding="async"></div><div><h3>Свобода выбора и мышления</h3><div>Ценим идеи наших сотрудников,<br> поощряем инициативность</div></div></li><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-3-Dz5I8Gbe.svg" alt="" loading="lazy" decoding="async"></div><div><h3>Международное проектирование</h3><div>Создаем уникальные объекты по&nbsp;всей России и&nbsp;миру</div></div></li><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-4-CzFCXod7.svg" alt="" loading="lazy" decoding="async"></div><div><h3>Заботимся о здоровье</h3><div>ДМС со&nbsp;стоматологией, полис&nbsp;ВЗР,<br> Страхование жизни после испытательного срока</div></div></li><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-5-BbxygLVq.svg" alt="" loading="lazy" decoding="async"></div><div><h3>Корпоративный спорт</h3><div>Командные виды спорта, йога</div></div></li><li class="_BenefitsGrid__item_4qdty_43"><div class="_BenefitsGrid__icon_4qdty_57"><img src="assets/benefit-6-DSp-_u6n.svg" alt="" loading="lazy" decoding="async"></div><div><h3>Весело отрывемся</h3><div>Корпоративные мероприятия, ежегодный сплав и&nbsp;другие ивенты</div></div></li></ul></section><section><div class="_VacanciesSection_9gnka_3 _VacanciesSection_ActialMain_9gnka_7" style=""><div class="_currentVacanciesTitle_9gnka_11"></div><div class="_vacanciesHeaders_9gnka_23 _vacanciesHeaders_ActialMain_9gnka_30"><div class="_vacanciesHeaders_wrap_9gnka_35"><div class="_headerCell_specialization_9gnka_68">Специальность</div><div class="_headerCell_9gnka_59 undefined">Направление</div><div class="_headerCell_9gnka_59 undefined">Занятость</div><div class="_headerCell_9gnka_59 undefined">Локация</div></div></div><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">Руководитель группы BIM (инженерные сети)</div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">BIM</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">Главный инженер проекта (метрополитен)</div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">Управление</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">Ведущий архитектор-дизайнер интерьеров Revit </div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">Архитектура</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">Главный инженер проекта  (ГИП комплексный)</div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">Управление</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">Главный специалист/ведущий инженер-проектировщик ОВиК</div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">Инженерия</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a><a class="_vacancyContainer_9gnka_22" href="hr_home.html"><div class="undefined _vacancyCell_title_9gnka_82">ГАП / Главный специалист дизайнер интерьеров Revit </div><div class="_vacancyCell_9gnka_72 _vacancyCell_direction_9gnka_308">Архитектура</div><div class="_vacancyCell_9gnka_72 _vacancyCell_busyness_9gnka_312">Полная</div><div class="_vacancyCell_9gnka_72 _vacancyCell_locationStaff_9gnka_316">Москва</div><div class="_vacancyCell_buttonLink_9gnka_117"><img src="data:image/svg+xml,%3csvg%20width='41'%20height='41'%20viewBox='0%200%2041%2041'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3ccircle%20cx='20.5'%20cy='20.5'%20r='20.5'%20fill=''/%3e%3cpath%20d='M8.99994%2019.795L31.2043%2019.7961M31.2043%2019.7961L21.2268%209.81859M31.2043%2019.7961L21.2268%2029.7737'%20stroke='%23F6F6F6'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e" alt="buttonLink" loading="lazy" decoding="async"></div></a></div><div class="_showVacanciesOfTotalVacancies_9gnka_155 _actualMain_9gnka_168"><div class="_vacancyAnnouncement_9gnka_175">Мы ищем более 110 специалистов</div><a class="_showManyButton_9gnka_179" href="hr_home.html">Смотреть все вакансии</a></div></section><section class="_VacanciesInvite_1ymv4_2"><div><div class="_VacanciesInvite__star_1ymv4_8 _VacanciesInvite__star_1_1ymv4_13" style="background-image: url(assets/star-1-D6-FVGEZ.png); transform: rotate(-492.357deg);"></div><div class="_VacanciesInvite__star_1ymv4_8 _VacanciesInvite__star_2_1ymv4_19" style="background-image: url(assets/star-2-DpI2flPY.png); transform: rotate(492.357deg);"></div><div class="_VacanciesInvite__star_1ymv4_8 _VacanciesInvite__star_3_1ymv4_25" style="background-image: url(assets/star-3-CXVViDie.png); transform: rotate(-492.357deg);"></div><div class="_VacanciesInvite__star_1ymv4_8 _VacanciesInvite__star_4_1ymv4_31" style="background-image: url(assets/star-4-DH7g-gm-.png); transform: rotate(492.357deg);"></div></div><div class="_VacanciesInvite__container_1ymv4_37"><h2>Приглашаем студентов<br> на&nbsp;стажировку</h2><div class="_VacanciesInvite__content_1ymv4_54"><div class="_VacanciesInvite__photos_1ymv4_70"><img src="assets/invite-1-8MPiD2zH.png" alt="" loading="lazy" decoding="async"><img src="assets/invite-2-QVprRLKS.png" alt="" loading="lazy" decoding="async"><img src="assets/invite-3-CgISdAB6.png" alt="" loading="lazy" decoding="async"><img src="assets/invite-4-BlYBlL_R.png" alt="" loading="lazy" decoding="async"><span></span></div><div class="_VacanciesInvite__desc_1ymv4_61">Оплачиваемая стажировка.<br> Сотрудничаем с&nbsp;ВУЗами, даем возможность <span>учиться у&nbsp;профессионалов</span> в&nbsp;сфере проектирования!</div><a class="_ButtonLink_91wfd_2 " href="hr_home.html">Смотреть стажировки</a></div></div></section><section class="_GalleryTabs_12tk3_2"><h2 class="_GalleryTabs__title_12tk3_5">Жизнь на&nbsp;<span>MARKSe</span></h2><div class="_GalleryTabs__noEvents_12tk3_15">Скоро здесь будет что-то увлекательное!</div></section><section class="_SocialsSwiper_8j3te_2"><div class="_SocialsSwiper__header_8j3te_16"><h2>Хочешь узнать больше о&nbsp;жизни компании?<br> Подписывайся на&nbsp;нас в&nbsp;<span>социальных сетях!</span></h2></div><div class="_SocialsSwiper__slider_8j3te_9"><div class="_ArrowsSwiper_1eov6_2"><button></button><button></button></div><div class="swiper swiper-initialized swiper-horizontal _SocialsSwiper__swiper_8j3te_6 swiper-backface-hidden"><div class="swiper-wrapper" style="transition-duration: 0ms; transition-delay: 0ms; transform: translate3d(-991.333px, 0px, 0px);"><div class="swiper-slide" data-swiper-slide-index="4" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://vk.com/marks_group_vk" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-6-CSUPfEAf.svg" alt="VK" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>VK</h3><span>MARKS GROUP</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide" data-swiper-slide-index="5" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://www.youtube.com/@marks_group" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-7-CYJl-jUg.svg" alt="YouTube" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>YouTube</h3><span>MARKS GROUP</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="6" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://rutube.ru/channel/38807824" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-8-Qte1cn4Q.svg" alt="Rutube" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>Rutube</h3><span>MARKS GROUP</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide _SocialsSwiper__active_8j3te_131" data-swiper-slide-index="0" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://t.me/marks_group" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-1-Q-Dpeeu5.svg" alt="Telegram" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>Telegram</h3><span>MARKS GROUP</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide swiper-slide-next" data-swiper-slide-index="1" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://t.me/marks_career" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-2-C2cQosnf.svg" alt="Telegram" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>Telegram</h3><span>Карьера MARKS!</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide" data-swiper-slide-index="2" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://t.me/digitalmarks" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-3-Bwyo_KzS.svg" alt="Telegram" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>Telegram</h3><span>MARKS DIGITAL</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div><div class="swiper-slide" data-swiper-slide-index="3" style="width: 465.667px; margin-right: 30px;"><a class="_SocialsSwiper__item_8j3te_27" href="https://dzen.ru/marksgroupp" target="_blank"><div class="_SocialsSwiper__picture_8j3te_39"><img src="assets/socials-swiper-5-DiIF6LB7.svg" alt="Дзен" loading="lazy" decoding="async"></div><div class="_SocialsSwiper__bottom_8j3te_51"><div><h3>Дзен</h3><span>MARKS GROUP</span></div><button class="_SocialsSwiper__button_8j3te_36">Подписаться</button></div></a></div></div></div></div></section><div id="form" class="_temporaryText_1pdvq_3">Не нашли подходящую вакансию?</div><div class="_textUnderForm_1pdvq_14">Оставьте ваши контакты, мы всегда в поиске талантливых профессионалов</div><div class="_vacancyFormWrapper_1pdvq_27"><form class="_fullForm_1ua14_75" enctype="multipart/form-data"><div class="_columnsWrap_1ua14_79"><div class="_leftColumn_1ua14_105"><label class="_wrapper_isd3t_1"><input type="text" placeholder=" " class="_input_isd3t_27  " name="name"><span class="_label_isd3t_8">Ваше имя и фамилия</span></label><label class="_wrapper_isd3t_1"><input type="text" placeholder=" " inputmode="tel" autocomplete="off" class="_input_isd3t_27  " name="phone" value=""><span class="_label_isd3t_8">Телефон</span></label><label class="_wrapper_isd3t_1"><input type="text" placeholder=" " class="_input_isd3t_27  " name="city"><span class="_label_isd3t_8">Город</span></label></div><div class="_rightColumn_1ua14_117"><div class="_select_telur_1" data-variant="compact"><div class="css-b62m3t-container"><span id="react-select-2-live-region" class="css-7pg0cj-a11yText"></span><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" role="log" class="css-7pg0cj-a11yText"></span><div class="select__control css-cp01gg-control"><div class="select__value-container css-14oxtc6"><div class="select__placeholder css-1vlsb4t-placeholder" id="react-select-2-placeholder">Указанное направление</div><input id="direction" tabindex="0" inputmode="none" aria-autocomplete="list" aria-expanded="false" aria-haspopup="true" role="combobox" aria-readonly="true" aria-describedby="react-select-2-placeholder" class="css-1hac4vs-dummyInput" value=""></div><div class="select__indicators css-1wy0on6"><span class="select__indicator-separator css-j4w2j1-indicatorSeparator"></span><div class="select__indicator select__dropdown-indicator css-g56vrd-indicatorContainer" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6L8 11L13 6" stroke="var(--gray-959DA6)"></path></svg></div></div></div></div></div><label class="_wrapper_isd3t_1"><input type="text" placeholder=" " class="_input_isd3t_27  " name="letter"><span class="_label_isd3t_8">Сопроводительное письмо</span></label><label class="_wrapper_isd3t_1"><input type="text" placeholder=" " class="_input_isd3t_27  " name="resume"><span class="_label_isd3t_8">Ссылка на резюме/портфолио</span></label><div class="_wrap_1n0gb_1" data-has-files="false" data-variant="full" data-has-input-error="false"><label class="_label_1n0gb_79"><input class="_input_1n0gb_83" type="file" multiple="" accept=".pdf,.doc,.docx,image/*" name="resumeFiles"><span class="_button_1n0gb_94 _buttonFull_1n0gb_115">Прикрепить файл</span></label></div></div></div><div class="_formFooter_1ua14_169"><div><div class="_agreement_vacancy_1ua14_161 _agreement_vacancy_text_1ua14_389" data-max-files="false">Нажав на кнопку, соглашаюсь на <a class="_agreement_vacancy_link_1ua14_425 _agreement_vacancy_text_1ua14_389" href="information.html" target="blank">обработку<br> персональных данных</a></div><input title="Заполните обязательные поля" disabled="" class="_formBtn_1ua14_1 _disabled_1ua14_63" type="submit" value="Откликнутся на вакансию"></div><div class="_social_1ua14_183"><p class="_socialTitle_1ua14_203">Для соискателей</p><div class="_socialContact_1ua14_221"><div class="_socialWrap_1ua14_233"><a href="mailto:hr@marksgroup.ru" class="_socialEmail_1ua14_245">hr@marksgroup.ru</a><a href="tel:+74951201226" class="_socialPhone_1ua14_265">+7 (495) 120-12-26</a></div><a class="_socialIcon_1ua14_307" href="https://t.me/marks_career"><img src="data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_16297_7459)'%3e%3ccircle%20cx='20'%20cy='20'%20r='20'%20fill='%2375BBFD'/%3e%3cpath%20d='M27.9875%2010.9939C27.9875%2010.9939%2029.9918%2010.2003%2029.8247%2012.1276C29.7691%2012.9211%2029.268%2015.6986%2028.8783%2018.7029L27.5421%2027.6023C27.5421%2027.6023%2027.4307%2028.906%2026.4285%2029.1327C25.4264%2029.3594%2023.9232%2028.3391%2023.6447%2028.1124C23.422%2027.9424%2019.4691%2025.3916%2018.0772%2024.1445C17.6874%2023.8044%2017.242%2023.1242%2018.1328%2022.3306L23.9788%2016.6623C24.6469%2015.9821%2025.315%2014.3949%2022.5312%2016.3222L14.7366%2021.7071C14.7366%2021.7071%2013.8458%2022.274%2012.1756%2021.7638L8.55664%2020.6301C8.55664%2020.6301%207.22042%2019.7799%209.50313%2018.9296C15.0707%2016.2655%2021.9188%2013.5446%2027.9875%2010.9939Z'%20fill='%23F6F6F6'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_16297_7459'%3e%3crect%20width='40'%20height='40'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e" alt="иконка телеграма" loading="lazy" decoding="async"></a></div></div></div></form></div></main></div><div style="display: grid; grid-template-columns: auto min-content;"><div class="CookieConsent" style="align-items: center; background: var(--light-light-gray-EBECEE); color: var(--black-1D2E43); display: flex; flex-wrap: wrap; justify-content: center; left: 0px; position: fixed; width: 100%; z-index: 999; padding: 0px 0px 0px 32px; box-shadow: none; font-family: var(--font-raleway); font-size: 1.125rem; font-style: normal; font-weight: var(--fw-400); line-height: 1.625rem; text-align: left; white-space: pre-line; bottom: 0px;"><div class="" style="flex: 1 0 300px; margin: 15px;">Мы используем файлы cookie и&nbsp;инструменты аналитики.</div><div class=""><button class="" id="rcc-confirm-button" aria-label="Accept cookies" style="background: rgb(29, 46, 67); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; border-radius: 0px; box-shadow: none; color: var(--white-F6F6F6); cursor: pointer; flex: 0 0 auto; padding: 24px 50px; margin: 0px; font-family: var(--font-raleway); font-size: 1rem; font-style: normal; font-weight: 600; line-height: 24px;">Принять</button></div></div></div><footer class="_footer_5g8pv_3"><div id="contacts" class="_footer__container_5g8pv_3"><div><div class="_footer__mail_5g8pv_9"><a href="mailto:hr@marksgroup.ru"><span>hr@marksgroup.ru</span></a></div><div class="_footer__office_5g8pv_33"><p>Офис&nbsp;·&nbsp;Москва</p></div><div class="_footer__contacts_5g8pv_42"><div><a class="_footer__tel_5g8pv_49" href="tel:+74951201226" style="font-variant-numeric: lining-nums;"><span>+7&nbsp;(495)&nbsp;120-12-26</span></a></div><div class="_footer__address_5g8pv_49"><div role="button" tabindex="0" class="_footer__address_5g8pv_49"><span>Москва З-я&nbsp;ул.&nbsp;Ямского Поля, д.&nbsp;20, с. 1, офис&nbsp;704</span></div></div></div></div><div class="_footer__block_right_5g8pv_65"><div id="projects" class="_footer__socials_5g8pv_78"><a href="https://vk.com/marks_group_vk" target="_blank"><span style="margin-right: 21px;">VK</span></a><a href="https://www.youtube.com/@marks_group" target="_blank"><span style="margin-right: 22px;">YT</span></a><a href="https://t.me/marks_group" target="_blank"><span>TG</span></a></div><div class="_footer__documents_5g8pv_94"><a href="information.html" target="_blank" rel="noopener noreferrer" class="_footer__documents_link_5g8pv_99"><span>Документы</span></a><a class="_footer__copyright_5g8pv_114" href="https://laba-laba.ru/" target="_blank"><span>©&nbsp;LABA</span></a></div></div></div></footer><div class="cursor-container"><div class="cursor" style="transform: translateX(800px) translateY(456.5px) translateZ(0px);"></div></div></div></div></div>
+  <!-- Yandex.Metrika counter -->
+  
+  <!-- /Yandex.Metrika counter -->
+
+
+
+<script>/*clone-ui*//* clone-ui: consolidated interaction layer. Reuses the site's own captured CSS animations. */
+(function () {
+  'use strict';
+
+  /* ---------- 1. videos: play all, pause offscreen ---------- */
+  var vids = document.querySelectorAll('video');
+  var autoVids = [].filter.call(vids, function (v) { return v.hasAttribute('autoplay'); });
+  autoVids.forEach(function (v) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+  if ('IntersectionObserver' in window && autoVids.length) {
+    var vio = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { rootMargin: '100px' });
+    autoVids.forEach(function (v) { vio.observe(v); });
+  }
+  // project-page videos: real site is click-to-play via overlay button
+  document.querySelectorAll('[class*="buttonPlayBlock"],[class*="buttonPlay_"]').forEach(function (ov) {
+    var host = ov.closest('div');
+    var v = (host && host.querySelector('video')) ||
+            (host && host.parentElement && host.parentElement.querySelector('video'));
+    if (!v) return;
+    v.muted = true;
+    ov.style.cursor = 'pointer';
+    ov.addEventListener('click', function () {
+      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); ov.style.display = 'none'; }
+    });
+  });
+  document.querySelectorAll('[class*="buttonFullscreen"],[class*="Fullscreen_"]').forEach(function (fb) {
+    var host = fb.closest('div');
+    var v = (host && host.querySelector('video')) ||
+            (host && host.parentElement && host.parentElement.querySelector('video'));
+    if (!v) return;
+    fb.style.cursor = 'pointer';
+    fb.addEventListener('click', function () { if (v.requestFullscreen) v.requestFullscreen(); });
+  });
+
+  /* ---------- 2. cookie banner ---------- */
+  var CK = 'myCookieConsent';
+  var cc = document.querySelector('.CookieConsent');
+  if (cc) {
+    if (localStorage.getItem(CK)) { cc.style.display = 'none'; }
+    var ccBtn = document.getElementById('rcc-confirm-button');
+    if (ccBtn) ccBtn.addEventListener('click', function () {
+      localStorage.setItem(CK, '1');
+      cc.style.opacity = '0'; cc.style.transform = 'translateY(100%)';
+      setTimeout(function () { cc.style.display = 'none'; }, 320);
+    });
+  }
+
+  /* ---------- 3. swipers -> native drag scroll + arrows ---------- */
+  document.querySelectorAll('.swiper-wrapper').forEach(function (w) {
+    var down = false, sx = 0, sl = 0, moved = false;
+    w.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      down = true; sx = e.clientX; sl = w.scrollLeft; moved = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - sx;
+      if (Math.abs(dx) > 5) { moved = true; w.classList.add('mg-dragging'); }
+      w.scrollLeft = sl - dx;
+    });
+    var lastX = 0, lastT = 0, vel = 0;
+    w.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var now = performance.now();
+      if (lastT) vel = (lastX - e.clientX) / Math.max(1, now - lastT) * 16;
+      lastX = e.clientX; lastT = now;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!down) return; down = false; w.classList.remove('mg-dragging');
+      // momentum: continue with release velocity, decay like Swiper freeMode
+      var v = vel; vel = 0; lastT = 0;
+      (function mom() {
+        if (Math.abs(v) < 0.4 || down) return;
+        w.scrollLeft += v; v *= 0.94;
+        requestAnimationFrame(mom);
+      })();
+    });
+    w.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    w.addEventListener('click', function (e) {
+      if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
+    }, true);
+  });
+  document.querySelectorAll('[class*="_ArrowsSwiper_"]').forEach(function (box) {
+    var host = box.parentElement;
+    var w = host && (host.querySelector('.swiper-wrapper') ||
+            (host.parentElement && host.parentElement.querySelector('.swiper-wrapper')));
+    if (!w) return;
+    var b = box.querySelectorAll('button');
+    if (b.length < 2) return;
+    function step() {
+      var s = w.querySelector('.swiper-slide');
+      return s ? s.getBoundingClientRect().width + 30 : w.clientWidth;
+    }
+    b[0].addEventListener('click', function () { w.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    b[1].addEventListener('click', function () { w.scrollBy({ left: step(), behavior: 'smooth' }); });
+    function upd() {
+      var s0 = w.scrollLeft < 10, s1 = w.scrollLeft > w.scrollWidth - w.clientWidth - 10;
+      b[0].disabled = s0; b[1].disabled = s1;
+      b[0].classList.toggle('swiper-button-disabled', s0);
+      b[1].classList.toggle('swiper-button-disabled', s1);
+    }
+    w.addEventListener('scroll', upd, { passive: true }); upd();
+  });
+
+  /* ---------- 4. competencies accordion: the site's own class animation ---------- */
+  var ACC_OPEN = 'BlockHeaderMain_contentOpen_blockHeader__KW9SC';
+  var ACC_CLOSE = 'BlockHeaderMain_contentClose_blockHeader__lrLjC';
+  var ACC_ROT = 'BlockHeaderMain_rotate180__aCjud';
+
+  /* ---------- 5. navbar hide on scroll down / show on scroll up ---------- */
+  var nav = document.querySelector('nav[class*="navbar"]');
+  var NAV_HIDDEN = 'style_navbar--hidden__ndNLv';
+  var lastY = 0;
+  if (nav) window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    var hiddenCls = (nav.className.match(/[\w-]*navbar--hidden[\w-]*/) || [NAV_HIDDEN])[0];
+    if (y > lastY && y > 80) nav.classList.add(NAV_HIDDEN, '_navbar--hidden_pp1il_19');
+    else nav.classList.remove(NAV_HIDDEN, '_navbar--hidden_pp1il_19');
+    lastY = y;
+  }, { passive: true });
+
+  /* ---------- 6. logo intro (site's own keyframes) ---------- */
+  var lc = document.querySelector('[class*="logo-circle"]');
+  var li = document.querySelector('[class*="logo-image"]');
+  if (lc) lc.classList.add('style_logo-circle-animate__sPIk0', 'style_logo-hr-animate__2RxQ8');
+  if (li) li.classList.add('style_logo-image-animate__OUPSa');
+  // after the intro, settle the dot to its static navy state (keyframes end blue)
+  setTimeout(function () {
+    if (lc) { lc.classList.remove('style_logo-circle-animate__sPIk0', 'style_logo-hr-animate__2RxQ8'); lc.style.animation = 'none'; }
+  }, 2400);
+
+  /* ---------- 7. marquees: correct speed after prune + pause offscreen ---------- */
+  var marq = document.querySelectorAll('[class*="SliderHeader__marquee"]');
+  function setMarqueeSpeed() {
+    var speeds = [73.6, 73.6]; // real: both marquees share the _marquee class (120s, ~73.6 px/s)
+    [].forEach.call(marq, function (t, i) {
+      var wpx = t.scrollWidth / 2;
+      if (wpx > 100) t.style.animationDuration = (wpx / (speeds[Math.min(i, 1)])).toFixed(1) + 's';
+    });
+  }
+  setMarqueeSpeed();
+  window.addEventListener('load', setMarqueeSpeed);
+  setTimeout(setMarqueeSpeed, 2500);
+  if ('IntersectionObserver' in window && marq.length) {
+    var mio = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        en.target.style.animationPlayState = en.isIntersecting ? 'running' : 'paused';
+      });
+    }, { rootMargin: '50px' });
+    marq.forEach(function (t) { mio.observe(t); });
+  }
+
+  /* ---------- 8. custom cursor: spring-follow + «Смотреть» over project cards ---------- */
+  var cur = document.querySelector('.cursor');
+  if (cur && matchMedia('(pointer:fine)').matches) {
+    var mx = -100, my = -100, x = -100, y = -100, vx = 0, vy = 0, big = false;
+    cur.style.cssText += ';pointer-events:none;transition:width .3s ease,height .3s ease,background .3s ease;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden';
+    var lbl = document.createElement('span');
+    lbl.textContent = 'Смотреть';
+    lbl.style.cssText = 'color:#F6F6F6;font-size:.875rem;font-family:var(--font-raleway,Raleway,sans-serif);opacity:0;transition:opacity .2s';
+    cur.appendChild(lbl);
+    document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      vx += (mx - x) * 0.12; vx *= 0.75; x += vx;
+      vy += (my - y) * 0.12; vy *= 0.75; y += vy;
+      cur.style.transform = 'translateX(' + (x - (big ? 50 : 12)) + 'px) translateY(' + (y - (big ? 50 : 12)) + 'px) translateZ(0)';
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover', function (e) {
+      // the site's own CSS sets cursor:none on media cards — that's exactly where the bubble belongs
+      var el = e.target, hideCursor = false;
+      for (var i = 0; i < 6 && el && el.nodeType === 1; i++, el = el.parentElement) {
+        if (getComputedStyle(el).cursor === 'none') { hideCursor = true; break; }
+      }
+      big = hideCursor;
+      if (big) { cur.style.width = '100px'; cur.style.height = '100px'; cur.style.background = '#1D2E43'; lbl.style.opacity = '1'; }
+      else { cur.style.width = '24px'; cur.style.height = '24px'; cur.style.background = 'transparent'; lbl.style.opacity = '0'; }
+    });
+  }
+
+  /* ---------- 9. footer spotlight mask + pulse ---------- */
+  var foot = document.querySelector('footer[class*="FooterCircle"]'); // home: FooterCircle_FooterCircle__…; inner pages: _FooterCircle_1iqf5_1
+  var fmain = document.querySelector('[class*="FooterCircle__main"]');
+  var flink = document.querySelector('[class*="FooterCircle__link"]');
+  if (foot && fmain) {
+    // real behavior: hovering the ringed word «проект» reveals the whole light layer (R -> 100vw, ~1s)
+    var fr = 0, frT = 0;
+    var fcircle = document.querySelector('[class*="FooterCircle__circle"]') || flink;
+    if (fcircle) {
+      fcircle.addEventListener('mouseenter', function () { frT = 100; });
+      fcircle.addEventListener('mouseleave', function () { frT = 0; });
+    }
+    (function floop() {
+      fr += (frT - fr) * 0.07;
+      if (Math.abs(fr - frT) > 0.05 || fr > 0.05) {
+        var m = 'radial-gradient(circle at 605px 200px, transparent ' + fr.toFixed(2) + 'vw, black 0px)';
+        fmain.style.webkitMaskImage = m; fmain.style.maskImage = m;
+      }
+      requestAnimationFrame(floop);
+    })();
+    if (flink && 'IntersectionObserver' in window) {
+      var fio = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) { flink.classList.add('FooterCircle_animate__r16Ub'); fio.disconnect(); } });
+      }, { threshold: 0.4 });
+      fio.observe(flink);
+    }
+  }
+
+  /* ---------- 10. page fade-out on internal navigation ---------- */
+  var fadeStyle = document.createElement('style');
+  fadeStyle.textContent = '@keyframes mg-fade-out{to{opacity:0}}.mg-leaving .page-little-fade,.mg-leaving [class*="page-little-fade"]{animation:mg-fade-out .15s ease-in forwards}';
+  document.head.appendChild(fadeStyle);
+
+  /* ---------- 11. contacts city tabs: active styling (map recenter is in clone-map) ---------- */
+  var TAB_A = null;
+  // the ACTIVE tab is class "_tabActive_…" (no "_tab_"), so scan with the broader "_tab" match
+  document.querySelectorAll('button[class*="_tab"]').forEach(function (b) {
+    var m = (b.className || '').match(/_tabActive_[A-Za-z0-9_]+/);
+    if (m) TAB_A = m[0];
+  });
+
+  /* ---------- 11b. projects listing «Выбрать город» slide-in drawer + city filter ---------- */
+  var cityBtn = document.querySelector('button[class*="_city_"]');
+  var cityPanel = document.querySelector('[class*="_panel_16t5l"]') || document.querySelector('[class*="_panel_"]');
+  var cityCards = document.querySelector('section[class*="_list_"]');
+  if (cityBtn && cityPanel && cityCards) {
+    var cityOpen = false;
+    function setCityPanel(open) { cityOpen = open; cityPanel.style.transform = open ? 'translateX(0px)' : 'translateX(600px)'; cityPanel.style.transition = 'transform .35s ease'; }
+    setCityPanel(false);
+    cityBtn.addEventListener('click', function (e) { e.stopPropagation(); setCityPanel(!cityOpen); });
+    document.addEventListener('click', function (e) {
+      if (cityOpen && !e.target.closest('[class*="_panel_"]') && !e.target.closest('button[class*="_city_"]')) setCityPanel(false);
+    });
+    var cityClose = cityPanel.querySelector('[class*="close"],[class*="Close"],[class*="cross"]');
+    if (cityClose) cityClose.addEventListener('click', function () { setCityPanel(false); });
+    // the real drawer's city list is React-populated (empty in our static capture) — rebuild it
+    // from the project cards' own location text, and filter the grid on select.
+    var cards = [].slice.call(cityCards.querySelectorAll('a[href*="project_"]'));
+    function cardCity(a) { var m = a.querySelector('[class*="_item_meta"]'); var t = (m && (m.getAttribute('title') || m.textContent) || '').trim(); return t.replace(/^Россия,?\s*/i, '').replace(/^г\.\s*/i, '').replace(/^Республика\s+/i, '').trim() || t; }
+    var cityMap = {}; cards.forEach(function (a) { var c = cardCity(a); if (c) (cityMap[c] = cityMap[c] || []).push(a); });
+    var names = Object.keys(cityMap).sort(function (x, y) { return cityMap[y].length - cityMap[x].length; });
+    var listWrap = document.createElement('div'); listWrap.className = 'mg-citylist';
+    listWrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;overflow-y:auto;max-height:60vh;padding:8px 0';
+    function mkBtn(label, cs) {
+      var el = document.createElement('button'); el.type = 'button'; el.textContent = label;
+      el.style.cssText = 'text-align:left;background:none;border:0;padding:10px 24px;font:inherit;color:#1D2E43;cursor:pointer;font-family:var(--font-raleway,Raleway,sans-serif)';
+      el.addEventListener('mouseenter', function () { el.style.background = '#EBECEE'; });
+      el.addEventListener('mouseleave', function () { el.style.background = 'none'; });
+      el.addEventListener('click', function () {
+        cards.forEach(function (a) { a.style.display = (!cs || cs.indexOf(a) >= 0) ? '' : 'none'; });
+        setCityPanel(false);
+        var lbl = cityBtn.querySelector('[class*="_buttonLabel"]'); if (lbl) lbl.textContent = label;
+      });
+      return el;
+    }
+    listWrap.appendChild(mkBtn('Все города', null));
+    names.forEach(function (c) { listWrap.appendChild(mkBtn(c, cityMap[c])); });
+    cityPanel.appendChild(listWrap);
+    var citySearch = cityPanel.querySelector('#search-input, input[type="search"]');
+    if (citySearch) citySearch.addEventListener('input', function () {
+      var q = citySearch.value.trim().toLowerCase();
+      [].forEach.call(listWrap.children, function (el) { el.style.display = (el.textContent === 'Все города' || el.textContent.toLowerCase().indexOf(q) >= 0) ? '' : 'none'; });
+    });
+  }
+
+  /* ---------- 12. project-page share buttons ---------- */
+  var shareMap = { vk: 'https://vk.com/share.php?url=', wa: 'https://wa.me/?text=', tg: 'https://t.me/share/url?url=' };
+
+  /* ---------- 13. forms: validate + graceful static submit ---------- */
+  document.querySelectorAll('form').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = f.querySelector('input[name="name"]');
+      var tel = f.querySelector('input[name="tel"],input[name="phone"]');
+      var txt = f.querySelector('textarea');
+      var err = f.querySelector('[class*="textError"]');
+      var bad = (!name || !name.value.trim()) || (!tel || tel.value.replace(/\D/g, '').length !== 11);
+      if (bad) {
+        if (err) { err.textContent = 'Заполните имя и корректный телефон.'; err.style.visibility = 'visible'; }
+        return;
+      }
+      var body = encodeURIComponent((txt ? txt.value + '\n\n' : '') + 'Имя: ' + name.value + '\nТелефон: ' + tel.value);
+      location.href = 'mailto:mail@marksgroup.ru?subject=' + encodeURIComponent('Заявка с сайта MARKS GROUP') + '&body=' + body;
+      var ok = document.createElement('div');
+      ok.className = 'mg-form-ok';
+      ok.textContent = 'Спасибо! Заявка сформирована — отправьте письмо в открывшемся окне почты, и мы свяжемся с вами.';
+      f.replaceChildren(ok);
+    });
+  });
+
+  /* ---------- delegated clicks: accordion, dropdowns, burger, tabs, share, links fade ---------- */
+  var sb = document.querySelector('[class*="navbar-sidebar_"],[class*="navbar-sidebar__"]');
+  var sbOpen = false;
+  function setSidebar(open) {
+    if (!sb) return;
+    sbOpen = open;
+    sb.style.cssText = open
+      ? 'display:block;opacity:1;visibility:visible;transform:none;translate:none;pointer-events:auto;transition:opacity .25s ease,transform .25s ease'
+      : '';
+    sb.setAttribute('aria-hidden', String(!open));
+  }
+  // build dropdowns once — REAL items/labels/descriptions, presented as a full-width
+  // in-flow header extension that pushes the page down (like the real site)
+  var DD_ITEMS = {
+    'Публикации': [
+      ['Новости', 'Научные достижения, интервью и статьи ведущих профессиональных и публицистических изданий', 'publication.html'],
+      ['MARKS jornal', 'Научный журнал', 'journalPage.html']
+    ],
+    'О компании': [
+      ['История MARKS GROUP', 'Люди, которые не боятся вызовов и готовы к новым победам', 'company.html#history'],
+      ['Награды и премии', 'Проекты, отмеченные наградами в разных номинациях', 'company.html#awards'],
+      ['Сотрудники', 'Наша главная ценность — это команда', 'company.html#staff']
+    ]
+  };
+  var navRoot = document.querySelector('nav[class*="navbar"]');
+  var ddPanel = null;
+  if (navRoot) {
+    ddPanel = document.createElement('div');
+    ddPanel.className = 'mg-ddx';
+    var inner = document.querySelector('[class*="navbar-top"]');
+    var pad = inner ? getComputedStyle(inner).paddingLeft : '48px';
+    ddPanel.style.paddingLeft = '291px';
+    navRoot.appendChild(ddPanel);
+  }
+  function openDropdown(btn, key) {
+    var items = DD_ITEMS[key];
+    var ul = document.createElement('ul');
+    items.forEach(function (it) {
+      var l = document.createElement('li'); var a = document.createElement('a');
+      a.href = it[2]; if (/^https?:/.test(it[2])) a.target = '_blank';
+      a.innerHTML = '<div class="t"></div><div class="d"></div>';
+      a.querySelector('.t').textContent = it[0];
+      a.querySelector('.d').textContent = it[1];
+      l.appendChild(a); ul.appendChild(l);
+    });
+    ddPanel.replaceChildren(ul);
+    ddPanel.classList.add('open');
+    ddPanel.dataset.owner = key;
+    setCaret(btn, true);
+  }
+  function setCaret(btn, open) {
+    if (!btn) return;
+    var down = btn.querySelector('[class*="arrow-icon--down"]');
+    var up = btn.querySelector('[class*="arrow-icon--up"]');
+    [].forEach.call(btn.querySelectorAll('[class*="--hidden"], [class*="arrow-icon"]'), function () {});
+    if (down && up) {
+      var hidCls = null;
+      [up, down].forEach(function (el) {
+        (el.className.match(/[\w-]*--hidden[\w-]*/g) || []).forEach(function (c) { hidCls = c; el.classList.remove(c); });
+      });
+      hidCls = hidCls || 'mg-hide';
+      (open ? down : up).classList.add(hidCls);
+    }
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  function closeAllDropdowns() {
+    if (ddPanel) { ddPanel.classList.remove('open'); delete ddPanel.dataset.owner; }
+    document.querySelectorAll('button[class*="navbar-item"]').forEach(function (b) {
+      if (DD_ITEMS[(b.textContent || '').trim()]) setCaret(b, false);
+    });
+  }
+  // real site opens the nav dropdowns on HOVER (not click) — panel is appended inside navRoot,
+  // so leaving navRoot (incl. the panel) closes them.
+  if (navRoot && ddPanel) {
+    navRoot.addEventListener('mouseover', function (e) {
+      var db = e.target.closest('button[class*="navbar-item"]');
+      if (db && DD_ITEMS[(db.textContent || '').trim()]) {
+        var key = (db.textContent || '').trim();
+        if (!(ddPanel.classList.contains('open') && ddPanel.dataset.owner === key)) { closeAllDropdowns(); openDropdown(db, key); }
+      } else if (db && ddPanel.classList.contains('open')) { closeAllDropdowns(); }
+    });
+    navRoot.addEventListener('mouseleave', function () { closeAllDropdowns(); });
+  }
+
+  document.addEventListener('click', function (e) {
+    // dropdown toggle (full-width header extension, real content)
+    var db = e.target.closest('button[class*="navbar-item"]');
+    var dbKey = db ? (db.textContent || '').trim() : '';
+    if (db && DD_ITEMS[dbKey] && ddPanel) {
+      var wasOpen2 = ddPanel.classList.contains('open') && ddPanel.dataset.owner === dbKey;
+      closeAllDropdowns();
+      if (!wasOpen2) openDropdown(db, dbKey);
+      return;
+    } else if (!e.target.closest('.mg-ddx')) closeAllDropdowns();
+    // burger
+    var burger = e.target.closest('button[class*="navbar-burger"]');
+    if (burger) { setSidebar(!sbOpen); return; }
+    // CTA
+    var cta = e.target.closest('button');
+    if (cta && (cta.textContent || '').trim().indexOf('Обсудить проект') === 0) { location.href = 'footerForm.html'; return; }
+    // accordion: class-swap animation + the full sub-competency panel (captured from the real site)
+    var row = e.target.closest('[class*="block_blockHeader"]');
+    if (row && !e.target.closest('.mg-panel')) {
+      var rows = [].slice.call(document.querySelectorAll('[class*="block_blockHeader"]'));
+      var idx = rows.indexOf(row);
+      var c = row.querySelector('[class*="content_blockHeader"]');
+      var tog = row.querySelector('[class*="toggle_blockHeader"]');
+      var wasOpen = c && c.className.indexOf('contentOpen') >= 0;
+      // close everything
+      rows.forEach(function (r2) {
+        var c2 = r2.querySelector('[class*="content_blockHeader"]');
+        if (c2) { c2.classList.remove(ACC_OPEN); c2.classList.add(ACC_CLOSE); }
+        var t2 = r2.querySelector('[class*="toggle_blockHeader"]');
+        if (t2) t2.classList.remove(ACC_ROT);
+      });
+      document.querySelectorAll('.mg-panel').forEach(function (p) { p.remove(); });
+      if (!wasOpen && c) {
+        c.classList.remove(ACC_CLOSE); c.classList.add(ACC_OPEN);
+        if (tog) tog.classList.add(ACC_ROT);
+        var tpl = document.getElementById('mg-panel-' + idx);
+        if (tpl) {
+          var holder = document.createElement('div');
+          holder.className = 'mg-panel';
+          holder.innerHTML = tpl.innerHTML;
+          var hover = row.querySelector('[class*="block_hover"]');
+          (hover || row).appendChild(holder);
+        }
+      }
+      return;
+    }
+    // contacts tabs active state
+    var tab = e.target.closest('button[class*="_tab"]');
+    if (tab && TAB_A) {
+      tab.parentElement.querySelectorAll('button').forEach(function (b) { b.classList.remove(TAB_A); });
+      tab.classList.add(TAB_A);
+    }
+    // share buttons on project pages
+    var share = e.target.closest('[class*="_social_links_"] button');
+    if (share) {
+      var k = (share.textContent || share.className).toLowerCase();
+      var key = k.indexOf('vk') >= 0 ? 'vk' : k.indexOf('wa') >= 0 ? 'wa' : 'tg';
+      var ttl = (document.querySelector('h1') || {}).textContent || document.title;
+      ttl = ttl.trim().slice(0, 80);
+      var u = encodeURIComponent(location.href);
+      var url = key === 'vk' ? shareMap.vk + u + '&title=' + encodeURIComponent(ttl)
+              : shareMap[key] + encodeURIComponent(ttl + '\n') + u;
+      window.open(url, '_blank');
+      return;
+    }
+    // page fade-out for internal links
+    var a = e.target.closest('a[href]');
+    if (a && !a.target && !e.metaKey && !e.ctrlKey) {
+      var h = a.getAttribute('href');
+      if (h && !/^(https?:|mailto:|tel:|#)/.test(h)) {
+        e.preventDefault();
+        document.documentElement.classList.add('mg-leaving');
+        setTimeout(function () { location.href = h; }, 150);
+      }
+    }
+  });
+
+  /* ---------- phone inputs: +7 (___) ___-__-__ mask skeleton like the real form ---------- */
+  document.querySelectorAll('input[name="tel"],input[name="phone"],input[type="tel"]').forEach(function (inp) {
+    var MASK = '+7 (###) ###-##-##';           // # = a fillable digit slot (10 national digits)
+    function nat(v) {                            // strip to national digits (drop leading 7/8 country code)
+      var d = (v || '').replace(/\D/g, '');
+      if (d.charAt(0) === '8') d = d.slice(1);
+      else if (d.charAt(0) === '7') d = d.slice(1);
+      return d.slice(0, 10);
+    }
+    function build(n) {                          // returns {value, caret}
+      var out = '', di = 0, caret = 4;
+      for (var i = 0; i < MASK.length; i++) {
+        var c = MASK.charAt(i);
+        if (c === '#') { out += di < n.length ? n.charAt(di) : '_'; if (di < n.length) caret = out.length; di++; }
+        else out += c;
+      }
+      return { value: out, caret: n.length ? caret : 4 };
+    }
+    function editPos() { return build(nat(inp.value)).caret; }   // caret just after the last real digit
+    function snap() {                                            // keep caret inside the editable region
+      var c = editPos();
+      try { inp.setSelectionRange(c, c); } catch (e) {}
+      requestAnimationFrame(function () { try { inp.setSelectionRange(c, c); } catch (e) {} });
+    }
+    function ensureSkeleton() { if (!inp.value) inp.value = build('').value; }
+    inp.addEventListener('focus', function () { ensureSkeleton(); snap(); });
+    inp.addEventListener('click', function () { ensureSkeleton(); snap(); });   // clicking anywhere → caret at end of digits
+    inp.addEventListener('input', function () {
+      var r = build(nat(inp.value));
+      inp.value = r.value;
+      try { inp.setSelectionRange(r.caret, r.caret); } catch (e) {}
+    });
+    inp.addEventListener('blur', function () {
+      if (!nat(inp.value).length) inp.value = '';   // leave empty if nothing was typed
+    });
+  });
+
+  /* ---------- Документы -> real information page ---------- */
+  document.querySelectorAll('a[href="#"]').forEach(function (a) {
+    if ((a.textContent || '').trim() === 'Документы') { a.href = 'information.html'; }
+  });
+
+  /* ---------- mobile: real site renames the home H1 ---------- */
+  if (innerWidth <= 768) {
+    var h1p = document.getElementById('publications');
+    if (h1p) h1p.textContent = 'Награды проектов';
+  }
+
+  /* ---------- slick mini-driver: hero galleries with numbered buttons (project pages, listing, publications) ---------- */
+  document.querySelectorAll('.slick-slider').forEach(function (box) {
+    var track = box.querySelector('.slick-track'); if (!track) return;
+    var slides = [].filter.call(track.children, function (s) { return s.className.indexOf('slick-cloned') < 0; });
+    if (slides.length < 2) return;
+    var i = 0, N = slides.length, timer = null;
+    var W = function () { return slides[0].getBoundingClientRect().width; };
+    // numbered buttons like 01..04 living near the slider
+    var root = box.closest('div[class*="slider"], section') || box.parentElement;
+    var btns = [].filter.call(root.querySelectorAll('button'), function (b) {
+      return /^0?\d$/.test((b.textContent || '').trim());
+    });
+    if (!btns.length && document.querySelectorAll('.slick-slider').length === 1) {
+      // numbered nav lives outside the slider container (project pages)
+      btns = [].filter.call(document.querySelectorAll('button'), function (b) {
+        return /^0?\d$/.test((b.textContent || '').trim());
+      });
+      if (btns.length !== slides.length) btns = btns.slice(0, slides.length);
+    }
+    function go(n) {
+      i = (n + N) % N;
+      track.style.transition = 'transform .5s ease';
+      track.style.transform = 'translate3d(' + (-i * W()) + 'px,0,0)';
+      btns.forEach(function (b, k) {
+        b.style.opacity = k === i ? '1' : '.5';
+        b.style.fontSize = k === i ? '2.2em' : '';
+      });
+      var bar = root.querySelector('[class*="progress"], [class*="line_"]');
+      if (bar && bar.getBoundingClientRect().height < 8) bar.style.width = ((i + 1) / N * 100).toFixed(0) + '%';
+    }
+    function auto() { clearInterval(timer); timer = setInterval(function () { go(i + 1); }, 5000); }
+    btns.forEach(function (b, k) { b.addEventListener('click', function (e) { e.stopPropagation(); go(k); auto(); }); });
+    // drag
+    var sx = null;
+    box.addEventListener('pointerdown', function (e) { sx = e.clientX; });
+    box.addEventListener('pointerup', function (e) {
+      if (sx === null) return;
+      var dx = e.clientX - sx; sx = null;
+      if (dx < -50) { go(i + 1); auto(); } else if (dx > 50) { go(i - 1); auto(); }
+    });
+    box.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    go(0); auto();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) auto(); else clearInterval(timer); });
+      }).observe(box);
+    }
+  });
+
+  /* ---------- projects listing: competency filter chips + ?viewConstruction ---------- */
+  (function () {
+    if (!/project\.html/.test(location.pathname)) return;
+    var COMPS = ['Все', 'Архитектура и концепция', 'Градостроительство и генплан', 'Конструктив',
+      'Инженерия', 'Геотехника', 'Наука', 'Технологии', 'Цифровые технологии'];
+    var chips = [].filter.call(document.querySelectorAll('button'), function (b) {
+      return COMPS.indexOf((b.textContent || '').trim()) >= 0;
+    });
+    if (!chips.length) return;
+    var cards = [].slice.call(document.querySelectorAll('a[href*="project_"]')).filter(function (a) {
+      return a.querySelector('img');
+    });
+    function applyFilter(name) {
+      cards.forEach(function (card) {
+        var txt = card.textContent || '';
+        var show = name === 'Все' || txt.indexOf(name) >= 0 ||
+          (name.indexOf(' и ') > 0 && txt.indexOf(name.split(' и ')[0]) >= 0);
+        card.style.display = show ? '' : 'none';
+      });
+      chips.forEach(function (c) {
+        var on = (c.textContent || '').trim() === name;
+        c.style.background = on ? '#1D2E43' : '';
+        c.style.color = on ? '#F6F6F6' : '';
+      });
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        applyFilter((c.textContent || '').trim());
+      });
+    });
+    var qp = new URLSearchParams(location.search).get('viewConstruction');
+    if (qp) applyFilter(decodeURIComponent(qp));
+  })();
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeAllDropdowns(); setSidebar(false); }
+  });
+})();
+</script>
+</body></html>
